@@ -1421,7 +1421,7 @@
       .soc-head {
         text-align: center;
         max-width: 560px;
-        margin: 0 auto 28px;
+        margin: 0 auto 40px;
       }
       .soc-head .ey {
         justify-content: center;
@@ -1430,53 +1430,40 @@
         max-width: 440px;
         margin: 0 auto;
       }
-      .soc-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 16px;
-        max-width: 880px;
-        margin: 0 auto;
-      }
-      .soc-card {
-        position: relative;
-        background: #111;
-        border: 1px solid rgba(255, 255, 255, 0.09);
-        border-radius: 4px;
-        padding: 30px 22px 24px;
+      /* Icon row with color-fill + tooltip on hover */
+      .soc-tt {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        text-align: center;
-        gap: 12px;
+        justify-content: center;
+        gap: 28px;
+        list-style: none;
+      }
+      .soc-tt-item {
+        position: relative;
+      }
+      .soc-tt-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--off);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         overflow: hidden;
-        transition:
-          opacity 0.5s ease-out,
-          transform 0.5s ease-out,
-          box-shadow 0.25s ease,
-          border-color 0.25s ease;
       }
-      .soc-card.rv {
-        opacity: 0;
-        transform: translateX(-24px);
-      }
-      .soc-card--fb.rv {
-        transform: translateX(24px);
-        transition-delay: 0.15s;
-      }
-      .soc-card.rv.in {
-        opacity: 1;
-        transform: none;
-      }
-      .soc-card-top {
+      .soc-tt-fill {
         position: absolute;
-        top: 0;
+        bottom: 0;
         left: 0;
-        right: 0;
-        height: 3px;
+        width: 100%;
+        height: 0;
+        z-index: 1;
       }
-      .soc-card--ig .soc-card-top {
+      .soc-tt-link--ig .soc-tt-fill {
         background: linear-gradient(
-          90deg,
+          135deg,
           #f09433,
           #e6683c 25%,
           #dc2743 50%,
@@ -1484,172 +1471,82 @@
           #bc1888
         );
       }
-      .soc-card--fb .soc-card-top {
+      .soc-tt-link--fb .soc-tt-fill {
         background: #1877f2;
       }
-      @media (hover: hover) {
-        .soc-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
-          border-color: rgba(255, 255, 255, 0.16);
-        }
-      }
-      .soc-logo {
-        width: 54px;
-        height: 54px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-      .soc-logo svg {
+      .soc-tt-icon {
+        position: relative;
+        z-index: 2;
         width: 26px;
         height: 26px;
-        fill: #fff;
+        fill: rgba(255, 255, 255, 0.8);
       }
-      .soc-logo--ig {
-        background: linear-gradient(
-          135deg,
-          #f09433,
-          #e6683c 25%,
-          #dc2743 50%,
-          #cc2366 75%,
-          #bc1888
-        );
-      }
-      .soc-logo--fb {
-        background: #1877f2;
-      }
-      .soc-handle {
-        font-family: "Manrope", sans-serif;
-        font-size: 1.3rem;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        color: #fff;
-      }
-      .soc-copy {
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.55);
-        font-weight: 400;
-        line-height: 1.7;
-        max-width: 280px;
-      }
-      .soc-stat {
-        font-size: 10.5px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.35);
-      }
-      .soc-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        width: 100%;
-        padding: 15px 24px;
-        min-height: 48px;
-        margin-top: 6px;
+      .soc-tt-tip {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 7px 14px;
         font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.03em;
         color: #fff;
-        border-radius: 3px;
-        transition:
-          filter 0.25s ease,
-          transform 0.25s ease,
-          background-position 0.6s ease;
+        white-space: nowrap;
+        border-radius: 6px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
       }
-      .soc-btn svg {
-        width: 15px;
-        height: 15px;
-        fill: #fff;
-        flex-shrink: 0;
+      .soc-tt-tip--ig {
+        background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
       }
-      .soc-btn--ig {
-        background: linear-gradient(
-          135deg,
-          #f09433,
-          #e6683c 25%,
-          #dc2743 50%,
-          #cc2366 75%,
-          #bc1888,
-          #f09433
-        );
-        background-size: 220% 220%;
-        background-position: 0% 50%;
-      }
-      .soc-btn--fb {
+      .soc-tt-tip--fb {
         background: #1877f2;
       }
       @media (hover: hover) {
-        .soc-btn:hover {
-          filter: brightness(1.12);
-          transform: scale(1.02);
+        .soc-tt-link {
+          transition:
+            box-shadow 0.3s ease,
+            transform 0.3s ease,
+            border-color 0.3s ease;
         }
-        .soc-btn--ig:hover {
-          background-position: 100% 50%;
+        .soc-tt-fill {
+          transition: height 0.3s ease-in-out;
         }
-      }
-      .soc-btn:active {
-        filter: brightness(0.95);
-        transform: scale(0.99);
-      }
-      .soc-strip {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 28px auto 0;
-        padding: 12px 20px;
-        max-width: 460px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 100px;
-        font-size: 12px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.6);
-      }
-      .soc-strip-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 8px 4px;
-        color: rgba(255, 255, 255, 0.6);
-        transition: color 0.2s ease;
-      }
-      .soc-strip-item svg {
-        width: 13px;
-        height: 13px;
-        fill: currentColor;
-        flex-shrink: 0;
-      }
-      @media (hover: hover) {
-        .soc-strip-item:hover {
-          color: #fff;
+        .soc-tt-icon {
+          transition: fill 0.3s ease-in-out;
         }
-      }
-      .soc-strip-sep {
-        color: rgba(255, 255, 255, 0.25);
+        .soc-tt-tip {
+          transition:
+            opacity 0.3s ease-in-out,
+            bottom 0.3s ease-in-out,
+            visibility 0.3s ease-in-out;
+        }
+        .soc-tt-item:hover .soc-tt-link {
+          transform: translateY(-2px);
+          border-color: rgba(255, 255, 255, 0.24);
+          box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+        }
+        .soc-tt-item:hover .soc-tt-fill {
+          height: 100%;
+        }
+        .soc-tt-item:hover .soc-tt-icon {
+          fill: #fff;
+        }
+        .soc-tt-item:hover .soc-tt-tip {
+          opacity: 1;
+          visibility: visible;
+          bottom: -46px;
+        }
       }
       @media (min-width: 768px) {
-        .soc-grid {
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
+        .soc-tt-link {
+          width: 68px;
+          height: 68px;
         }
-        .soc-card {
-          padding: 34px 26px 28px;
-        }
-      }
-      @media (min-width: 1024px) {
-        #instagram {
-          padding: 64px 40px;
-        }
-        .soc-grid {
-          max-width: 920px;
-          gap: 24px;
+        .soc-tt-icon {
+          width: 30px;
+          height: 30px;
         }
       }
 
@@ -5745,77 +5642,34 @@
         </p>
       </div>
 
-      <div class="soc-grid">
-        <div class="soc-card soc-card--ig rv">
-          <div class="soc-card-top"></div>
-          <div class="soc-logo soc-logo--ig">
-            <svg><use href="#i-ig" /></svg>
-          </div>
+      <ul class="soc-tt rv">
+        <li class="soc-tt-item">
           <a
             href="https://www.instagram.com/deluxe_tuxedo"
+            aria-label="Instagram"
             target="_blank"
             rel="noopener"
-            class="soc-handle"
-            >@deluxe_tuxedo</a
+            class="soc-tt-link soc-tt-link--ig"
           >
-          <p class="soc-copy">
-            Modelos, inspiración y los looks más elegantes para tu evento
-            especial.
-          </p>
-          <div class="soc-stat">+500 publicaciones</div>
-          <a
-            href="https://www.instagram.com/deluxe_tuxedo"
-            target="_blank"
-            rel="noopener"
-            class="soc-btn soc-btn--ig"
-            ><svg><use href="#i-ig" /></svg>Seguir en Instagram</a
-          >
-        </div>
-
-        <div class="soc-card soc-card--fb rv">
-          <div class="soc-card-top"></div>
-          <div class="soc-logo soc-logo--fb">
-            <svg><use href="#i-fb" /></svg>
-          </div>
+            <span class="soc-tt-fill"></span>
+            <svg class="soc-tt-icon"><use href="#i-ig" /></svg>
+          </a>
+          <span class="soc-tt-tip soc-tt-tip--ig">@deluxe_tuxedo</span>
+        </li>
+        <li class="soc-tt-item">
           <a
             href="https://www.facebook.com/DeluxeTuxedoOficial"
+            aria-label="Facebook"
             target="_blank"
             rel="noopener"
-            class="soc-handle"
-            >Deluxe Tuxedo Oficial</a
+            class="soc-tt-link soc-tt-link--fb"
           >
-          <p class="soc-copy">
-            Promociones exclusivas, eventos especiales y atención directa a
-            tus preguntas.
-          </p>
-          <div class="soc-stat">Síguenos en Facebook</div>
-          <a
-            href="https://www.facebook.com/DeluxeTuxedoOficial"
-            target="_blank"
-            rel="noopener"
-            class="soc-btn soc-btn--fb"
-            ><svg><use href="#i-fb" /></svg>Seguir en Facebook</a
-          >
-        </div>
-      </div>
-
-      <div class="soc-strip rv">
-        <a
-          href="https://www.instagram.com/deluxe_tuxedo"
-          target="_blank"
-          rel="noopener"
-          class="soc-strip-item"
-          ><svg><use href="#i-ig" /></svg>deluxe_tuxedo</a
-        >
-        <span class="soc-strip-sep">·</span>
-        <a
-          href="https://www.facebook.com/DeluxeTuxedoOficial"
-          target="_blank"
-          rel="noopener"
-          class="soc-strip-item"
-          ><svg><use href="#i-fb" /></svg>DeluxeTuxedoOficial</a
-        >
-      </div>
+            <span class="soc-tt-fill"></span>
+            <svg class="soc-tt-icon"><use href="#i-fb" /></svg>
+          </a>
+          <span class="soc-tt-tip soc-tt-tip--fb">Deluxe Tuxedo Oficial</span>
+        </li>
+      </ul>
     </section>
 
     <!-- ══════ CONTACTO ══════ -->
