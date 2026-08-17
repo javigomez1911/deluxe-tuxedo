@@ -707,11 +707,13 @@
         object-fit: cover;
         object-position: center top;
         padding: 0;
-        display: none;
-        transition: transform 0.4s;
+        opacity: 0;
+        transition:
+          opacity 0.3s ease,
+          transform 0.4s;
       }
       .pci img.on {
-        display: block;
+        opacity: 1;
       }
       /* Badge */
       .pc-badge {
@@ -926,10 +928,11 @@
       .fg-img img {
         width: 100%;
         height: auto;
-        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
       }
       .fg-img img.on {
-        display: block;
+        opacity: 1;
       }
       /* Full-suit image override: show complete garment without crop */
       .img-full-suit {
@@ -1218,11 +1221,13 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: none;
-        transition: transform 0.4s;
+        opacity: 0;
+        transition:
+          opacity 0.3s ease,
+          transform 0.4s;
       }
       .br-img img.on {
-        display: block;
+        opacity: 1;
       }
       .br-num {
         position: absolute;
