@@ -370,55 +370,6 @@
         max-width: 340px;
         margin-bottom: 24px;
       }
-      .hero-btns {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      .hero-btn-wa {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: #25d366;
-        color: #fff;
-        padding: 16px;
-        border-radius: 4px;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        transition: opacity var(--t);
-      }
-      .hero-btn-wa svg {
-        width: 18px;
-        height: 18px;
-        fill: #fff;
-      }
-      .hero-btn-wa:active {
-        opacity: 0.85;
-      }
-      .hero-btn-cat {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        color: rgba(255, 255, 255, 0.75);
-        padding: 15px;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        transition:
-          border-color var(--t),
-          color var(--t);
-      }
-      .hero-btn-cat:active {
-        border-color: rgba(255, 255, 255, 0.7);
-        color: #fff;
-      }
       /* Stats strip bottom of hero */
       .hero-stats {
         display: grid;
@@ -1394,15 +1345,6 @@
           transform: translateY(-4px);
           box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
         }
-        .hero-btn-wa:hover,
-        .wa-big:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 10px 28px rgba(37, 211, 102, 0.42);
-        }
-        .hero-btn-cat:hover {
-          border-color: rgba(255, 255, 255, 0.7);
-          color: #fff;
-        }
         .br-btn:hover {
           transform: translateY(-1px);
           opacity: 0.92;
@@ -1552,8 +1494,12 @@
 
       /* ────── CONTACTO ────── */
       #contacto {
-        padding: 40px 20px;
-        background: var(--cream);
+        padding: 48px 20px;
+        background: #141414;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      #contacto .sh {
+        color: #fff;
       }
       .c-grid {
         display: flex;
@@ -1579,11 +1525,11 @@
         font-family: "Manrope", sans-serif;
         font-size: 1.05rem;
         font-weight: 500;
-        color: var(--text);
+        color: rgba(255, 255, 255, 0.9);
         line-height: 1.7;
       }
       .c-val a {
-        color: var(--text);
+        color: rgba(255, 255, 255, 0.9);
         transition: color var(--t);
       }
       .c-val a:active {
@@ -1597,7 +1543,7 @@
       .soc {
         width: 44px;
         height: 44px;
-        border: 1px solid var(--border);
+        border: 1px solid rgba(255, 255, 255, 0.14);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1607,39 +1553,15 @@
         width: 17px;
         height: 17px;
       }
-      .wa-big {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 11px;
-        background: #25d366;
-        color: #fff;
-        padding: 18px;
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        border-radius: 5px;
-        margin-top: 8px;
-        box-shadow: 0 6px 22px rgba(37, 211, 102, 0.32);
-        transition:
-          transform var(--t),
-          box-shadow var(--t),
-          opacity var(--t);
-      }
-      .wa-big svg {
-        width: 20px;
-        height: 20px;
-        fill: #fff;
-      }
-      .wa-big:active {
-        opacity: 0.9;
-        transform: scale(0.98);
-      }
       .c-info-box {
-        background: var(--white);
-        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-top: 2px solid var(--red);
         padding: 22px;
         margin-top: 24px;
+      }
+      .c-info-box .c-lbl {
+        color: rgba(255, 255, 255, 0.4);
       }
       .hours-tbl {
         width: 100%;
@@ -1647,19 +1569,19 @@
         margin-top: 10px;
       }
       .hours-tbl tr {
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
       .hours-tbl td {
         padding: 10px 0;
         font-size: 13px;
         font-weight: 400;
-        color: var(--muted);
+        color: rgba(255, 255, 255, 0.55);
         vertical-align: top;
       }
       .hours-tbl td:last-child {
         text-align: right;
         font-weight: 600;
-        color: var(--text);
+        color: rgba(255, 255, 255, 0.92);
       }
       .h-closed {
         color: var(--red) !important;
@@ -1667,11 +1589,11 @@
       .coverage {
         margin-top: 20px;
         padding-top: 18px;
-        border-top: 1px solid var(--border);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
       .coverage p {
         font-size: 13px;
-        color: var(--muted);
+        color: rgba(255, 255, 255, 0.55);
         line-height: 1.75;
         font-weight: 400;
       }
@@ -1680,12 +1602,13 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1px;
-        background: var(--border);
-        margin-top: 24px;
+        background: rgba(255, 255, 255, 0.08);
+        margin-top: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
       .trust-item {
-        background: var(--white);
-        padding: 14px 8px;
+        background: #191919;
+        padding: 18px 8px;
         text-align: center;
       }
       .trust-icon {
@@ -1702,12 +1625,12 @@
         font-weight: 700;
         letter-spacing: 0.09em;
         text-transform: uppercase;
-        color: var(--text);
+        color: rgba(255, 255, 255, 0.92);
         margin-bottom: 2px;
       }
       .trust-s {
         font-size: 11px;
-        color: var(--muted);
+        color: rgba(255, 255, 255, 0.5);
         font-weight: 400;
         line-height: 1.45;
       }
@@ -1852,6 +1775,17 @@
         .rv {
           opacity: 1 !important;
           transform: none !important;
+        }
+        /* El carrusel de marcas es un desplazamiento lento y decorativo —
+           se deja correr incluso con "reducir movimiento" activado. */
+        .brands-track {
+          animation-duration: 52s !important;
+          animation-iteration-count: infinite !important;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) and (min-width: 960px) {
+        .brands-track {
+          animation-duration: 70s !important;
         }
       }
 
@@ -2038,14 +1972,6 @@
         .hero-h {
           font-size: clamp(4rem, 9vw, 6rem);
         }
-        .hero-btns {
-          flex-direction: row;
-        }
-        .hero-btn-wa,
-        .hero-btn-cat {
-          flex: 1;
-          text-align: center;
-        }
         .pcard {
           width: 260px;
         }
@@ -2169,13 +2095,6 @@
         .hero-h {
           font-size: clamp(2.8rem, 4.6vw, 5rem);
         }
-        .hero-btns {
-          flex-direction: row;
-        }
-        .hero-btn-wa,
-        .hero-btn-cat {
-          padding: 14px 24px;
-        }
         .hero-stats {
           position: absolute;
           bottom: 0;
@@ -2295,14 +2214,6 @@
         }
         #contacto .c-info-box {
           margin-top: 0;
-        }
-        /* La columna de info empuja el botón WhatsApp al fondo, alineado
-           con la caja de horarios de la derecha */
-        #contacto .c-col {
-          height: 100%;
-        }
-        #contacto .wa-big {
-          margin-top: auto;
         }
         /* Fila de confianza compacta, ancho completo bajo las 2 columnas */
         .trust-row {
@@ -2516,17 +2427,6 @@
           Bodas · Graduaciones · XV Años · Eventos de Etiqueta<br />Renta y
           venta en Monterrey desde el año 2000.
         </p>
-        <div class="hero-btns">
-          <a
-            href="https://wa.me/528110778004?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20Deluxe%20Tuxedo"
-            target="_blank"
-            rel="noopener"
-            class="hero-btn-wa"
-          >
-            <svg><use href="#i-wa" /></svg>Reservar Cita por WhatsApp
-          </a>
-          <a href="#catalogo" class="hero-btn-cat">Ver Catálogo Completo</a>
-        </div>
       </div>
       <div class="hero-stats">
         <div class="hs">
@@ -5728,14 +5628,6 @@
               ></a>
             </div>
           </div>
-          <a
-            href="https://wa.me/528110778004?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20Deluxe%20Tuxedo"
-            target="_blank"
-            rel="noopener"
-            class="wa-big"
-          >
-            <svg><use href="#i-wa" /></svg>Reservar Cita por WhatsApp
-          </a>
         </div>
         <div class="c-col">
           <div class="c-info-box">
