@@ -203,6 +203,17 @@
         background: var(--text);
         transition: var(--t);
       }
+      /* Hamburger → X: el propio botón es el único cierre del menú móvil
+         (ver por qué en el JS de MOBILE MENU) */
+      .ham[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+      .ham[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+      }
+      .ham[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
 
       /* ────── MOBILE FULLSCREEN MENU ────── */
       .mob {
@@ -238,21 +249,6 @@
       .mob a:active,
       .mob a:hover {
         color: var(--red);
-      }
-      .mob-close {
-        position: absolute;
-        top: 14px;
-        right: 16px;
-        font-size: 1.5rem;
-        color: rgba(255, 255, 255, 0.5);
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        transition: color var(--t);
-      }
-      .mob-close:active {
-        color: #fff;
       }
       .mob .mob-wa {
         margin-top: 24px;
@@ -2254,7 +2250,6 @@
 
     <!-- MOBILE FULLSCREEN MENU -->
     <div class="mob" id="mobmenu" role="dialog">
-      <button class="mob-close" id="mobclose" aria-label="Cerrar">✕</button>
       <a href="#inicio" class="mob-lnk">Inicio</a>
       <a href="#nosotros" class="mob-lnk">Nosotros</a>
       <a href="#catalogo" class="mob-lnk">Catálogo</a>
@@ -5577,7 +5572,6 @@
       /* ── MOBILE MENU ── */
       const mob = document.getElementById("mobmenu");
       const ham = document.getElementById("hambtn");
-      const mc = document.getElementById("mobclose");
       function openMenu() {
         mob.classList.add("open");
         ham.setAttribute("aria-expanded", "true");
@@ -5591,7 +5585,6 @@
       ham.addEventListener("click", () =>
         mob.classList.contains("open") ? closeMenu() : openMenu()
       );
-      mc.addEventListener("click", closeMenu);
       mob
         .querySelectorAll(".mob-lnk,.mob-wa")
         .forEach((l) => l.addEventListener("click", closeMenu));
