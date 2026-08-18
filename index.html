@@ -190,8 +190,12 @@
       .ham {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         gap: 4.5px;
         padding: 8px;
+        min-width: 44px;
+        min-height: 44px;
         background: none;
         border: none;
         cursor: pointer;
@@ -729,13 +733,14 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--muted);
-        padding: 0;
+        padding: 16px 0;
+        margin: -16px 0 2px;
         display: flex;
         align-items: center;
         gap: 4px;
+        min-height: 44px;
         cursor: pointer;
         transition: color var(--t);
-        margin-bottom: 18px;
       }
       .spec-btn:active {
         color: var(--red);
