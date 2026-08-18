@@ -317,8 +317,13 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center center;
-        opacity: 0.82;
+        object-position: center 20%;
+        opacity: 1;
+        /* La foto es vertical (retrato); "cover" ya usa el 100% del ancho,
+           así que zoom + desplazamiento lateral es lo que aleja la cara
+           del modelo del bloque de texto (que vive en la mitad izquierda). */
+        transform: scale(1.25) translateX(14%);
+        transform-origin: center 20%;
       }
       .hero-content {
         position: relative;
@@ -328,6 +333,7 @@
         justify-content: flex-end;
         flex: 1;
         padding: 0 20px 28px;
+        max-width: 760px;
       }
       .hero-ey {
         display: flex;
@@ -349,60 +355,51 @@
       }
       .hero-h {
         font-family: "Manrope", sans-serif;
-        font-size: clamp(2.6rem, 10vw, 4.8rem);
+        font-size: clamp(2.1rem, 9vw, 4.6rem);
         font-weight: 800;
-        line-height: 1.05;
-        color: #fff;
+        line-height: 0.98;
         letter-spacing: -0.02em;
-        margin-bottom: 14px;
+        text-transform: uppercase;
+        color: #fff;
+        margin-bottom: 16px;
       }
       .hero-h em {
-        font-style: italic;
-        color: rgba(255, 255, 255, 0.3);
-        font-weight: 300;
+        font-style: normal;
+        font-weight: 800;
+        color: var(--red);
       }
-      /* Hero h no longer uses em, kept for safety */
       .hero-p {
         font-size: 15px;
         color: rgba(255, 255, 255, 0.78);
         line-height: 1.75;
         font-weight: 400;
-        max-width: 340px;
-        margin-bottom: 24px;
+        max-width: 420px;
+        margin-bottom: 28px;
       }
-      /* Stats strip bottom of hero */
+      /* Stats — minimalistas, en línea, no barra completa */
       .hero-stats {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        border-top: 1px solid rgba(255, 255, 255, 0.07);
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        gap: 28px;
         position: relative;
         z-index: 2;
       }
       .hs {
-        padding: 11px 8px;
-        text-align: center;
-        border-right: 1px solid rgba(255, 255, 255, 0.06);
-      }
-      .hs:last-child {
-        border-right: none;
+        text-align: left;
       }
       .hs-n {
         font-family: "Manrope", sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.15rem;
         font-weight: 800;
-        color: var(--red);
+        color: #fff;
         line-height: 1;
       }
       .hs-l {
         font-size: 8px;
         font-weight: 600;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.3);
-        margin-top: 2px;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 3px;
       }
 
       /* ────── SECTION SHARED ────── */
@@ -1868,9 +1865,6 @@
         .hero-content {
           padding: 0 36px 40px;
         }
-        .hero-h {
-          font-size: clamp(4rem, 9vw, 6rem);
-        }
         .pcard {
           width: 260px;
         }
@@ -1964,42 +1958,9 @@
         .logo-img {
           height: 60px;
         }
-        /* HERO: two-column on desktop */
-        #inicio {
-          flex-direction: row;
-          min-height: 82vh;
-          height: 82vh;
-        }
-        .hero-bg {
-          display: none;
-        }
-        .hero-img {
-          position: relative;
-          width: 57%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center 20%;
-          opacity: 1;
-          flex-shrink: 0;
-        }
+        /* HERO: full-bleed a todos los tamaños; solo un poco más de aire */
         .hero-content {
-          position: relative;
-          z-index: 2;
-          justify-content: center;
-          padding: 44px 6% 76px;
-          flex: 1;
-          background: var(--black);
-        }
-        /* Font size calculado para la columna de ~43% del viewport */
-        .hero-h {
-          font-size: clamp(2.8rem, 4.6vw, 5rem);
-        }
-        .hero-stats {
-          position: absolute;
-          bottom: 0;
-          left: 57%;
-          right: 0;
-          grid-template-columns: repeat(3, 1fr);
+          padding: 0 60px 60px;
         }
         /* CATALOG: desktop sidebar layout */
         .cat-tabs {
@@ -2315,24 +2276,24 @@
             >Monterrey, N.L. · 25 años de experiencia</span
           >
         </div>
-        <h1 class="hero-h">Trajes para<br />tu evento<br />especial</h1>
+        <h1 class="hero-h">Trajes para tu<br />evento <em>especial</em></h1>
         <p class="hero-p">
           Bodas · Graduaciones · XV Años · Eventos de Etiqueta<br />Renta y
           venta en Monterrey desde el año 2000.
         </p>
-      </div>
-      <div class="hero-stats">
-        <div class="hs">
-          <div class="hs-n" data-count="4700" data-prefix="+" data-comma="1">+0</div>
-          <div class="hs-l">Clientes satisfechos</div>
-        </div>
-        <div class="hs">
-          <div class="hs-n" data-count="5">0</div>
-          <div class="hs-l">Sucursales</div>
-        </div>
-        <div class="hs">
-          <div class="hs-n" data-count="160" data-suffix="+">0+</div>
-          <div class="hs-l">Productos en catálogo</div>
+        <div class="hero-stats">
+          <div class="hs">
+            <div class="hs-n" data-count="4700" data-prefix="+" data-comma="1">+0</div>
+            <div class="hs-l">Clientes satisfechos</div>
+          </div>
+          <div class="hs">
+            <div class="hs-n" data-count="5">0</div>
+            <div class="hs-l">Sucursales</div>
+          </div>
+          <div class="hs">
+            <div class="hs-n" data-count="160" data-suffix="+">0+</div>
+            <div class="hs-l">Productos en catálogo</div>
+          </div>
         </div>
       </div>
     </section>
