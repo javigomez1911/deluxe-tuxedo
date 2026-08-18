@@ -319,11 +319,6 @@
         object-fit: cover;
         object-position: center 20%;
         opacity: 1;
-        /* La foto es vertical (retrato); "cover" ya usa el 100% del ancho,
-           así que zoom + desplazamiento lateral es lo que aleja la cara
-           del modelo del bloque de texto (que vive en la mitad izquierda). */
-        transform: scale(1.25) translateX(14%);
-        transform-origin: center 20%;
       }
       .hero-content {
         position: relative;
@@ -1964,6 +1959,13 @@
         /* HERO: full-bleed a todos los tamaños; solo un poco más de aire */
         .hero-content {
           padding: 0 60px 60px;
+        }
+        /* Solo en escritorio: la foto es vertical y el contenedor muy ancho,
+           así que "cover" deja poco margen para separar la cara del texto.
+           Zoom suave (no tanto como para cortar el pelo) + leve desplazamiento. */
+        .hero-img {
+          transform: scale(1.08) translateX(8%);
+          transform-origin: center 10%;
         }
         /* CATALOG: desktop sidebar layout */
         .cat-tabs {
