@@ -1840,6 +1840,193 @@
       }
 
       /* ────── POPUP PROMO GRADUADOS ────── */
+      /* ────── VENTANA RÁPIDA ANTES DE WHATSAPP (catálogo) ────── */
+      .q-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
+      .q-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .q-box {
+        background: #111;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 3px solid var(--red);
+        border-radius: 10px;
+        max-width: 440px;
+        width: 100%;
+        max-height: calc(100vh - 32px);
+        overflow-y: auto;
+        padding: 30px 24px 26px;
+        position: relative;
+        transform: translateY(24px) scale(0.97);
+        transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      }
+      .q-overlay.open .q-box {
+        transform: none;
+      }
+      .q-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+      }
+      .q-close:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: #fff;
+      }
+      .q-eyebrow {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 8px;
+      }
+      .q-title {
+        font-family: "Manrope", sans-serif;
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+        margin-bottom: 6px;
+        padding-right: 36px;
+      }
+      .q-model {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.55);
+        margin-bottom: 22px;
+      }
+      .q-model b {
+        color: #fff;
+        font-weight: 600;
+      }
+      .q-group {
+        margin-bottom: 20px;
+      }
+      .q-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 10px;
+      }
+      .q-label span {
+        opacity: 0.5;
+        font-weight: 400;
+      }
+      .q-opts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .q-opt {
+        padding: 10px 14px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        font-family: "Manrope", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 100px;
+        cursor: pointer;
+        transition: background 0.18s, border-color 0.18s, color 0.18s;
+      }
+      .q-opt:hover {
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+      .q-opt.sel {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff;
+      }
+      .q-date {
+        width: 100%;
+        min-height: 46px;
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        color: #fff;
+        font-family: "Manrope", sans-serif;
+        font-size: 14px;
+        color-scheme: dark;
+      }
+      .q-go {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 52px;
+        margin-top: 6px;
+        background: #25d366;
+        color: #fff;
+        border-radius: 6px;
+        font-family: "Manrope", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: filter 0.2s, transform 0.2s;
+      }
+      .q-go svg {
+        width: 18px;
+        height: 18px;
+        fill: #fff;
+      }
+      .q-go:hover {
+        filter: brightness(1.08);
+      }
+      .q-go:active {
+        transform: scale(0.99);
+      }
+      .q-skip {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 12px;
+        padding: 8px;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.4);
+        font-family: "Manrope", sans-serif;
+        font-size: 12px;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .q-skip:hover {
+        color: rgba(255, 255, 255, 0.75);
+      }
+
       .popup-overlay {
         position: fixed;
         inset: 0;
@@ -5696,6 +5883,49 @@
       <svg><use href="#i-wa" /></svg>
     </a>
 
+    <!-- VENTANA RÁPIDA: 2-3 toques antes de WhatsApp (catálogo) -->
+    <div
+      class="q-overlay"
+      id="qModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Consultar disponibilidad"
+    >
+      <div class="q-box">
+        <button class="q-close" id="qClose" aria-label="Cerrar">✕</button>
+        <div class="q-eyebrow">Consultar disponibilidad</div>
+        <div class="q-title">Cuéntanos un poco</div>
+        <div class="q-model" id="qModel"></div>
+        <div class="q-group">
+          <div class="q-label">¿Para qué evento?</div>
+          <div class="q-opts" data-q="evento">
+            <button type="button" class="q-opt">Boda</button>
+            <button type="button" class="q-opt">Graduación</button>
+            <button type="button" class="q-opt">XV Años</button>
+            <button type="button" class="q-opt">Otro</button>
+          </div>
+        </div>
+        <div class="q-group">
+          <div class="q-label">
+            ¿Fecha aproximada del evento? <span>(opcional)</span>
+          </div>
+          <input type="date" class="q-date" id="qDate" aria-label="Fecha del evento" />
+        </div>
+        <div class="q-group">
+          <div class="q-label">¿Cuándo te gustaría visitarnos?</div>
+          <div class="q-opts" data-q="visita">
+            <button type="button" class="q-opt">Entre semana</button>
+            <button type="button" class="q-opt">Fin de semana</button>
+            <button type="button" class="q-opt">Aún no lo sé</button>
+          </div>
+        </div>
+        <button class="q-go" id="qGo">
+          <svg><use href="#i-wa" /></svg>Continuar por WhatsApp
+        </button>
+        <button class="q-skip" id="qSkip">Prefiero solo escribir</button>
+      </div>
+    </div>
+
     <script>
       /* ── PREFERENCIA DE MOVIMIENTO ── */
       const reduceMotion = window.matchMedia(
@@ -5764,6 +5994,93 @@
           revealNosotros();
           setTimeout(() => sec.scrollIntoView({ block: "start" }), 120);
         }
+      })();
+
+      /* ── VENTANA RÁPIDA antes de WhatsApp (catálogo) ── */
+      (function () {
+        const modal = document.getElementById("qModal");
+        if (!modal) return;
+        const modelEl = document.getElementById("qModel");
+        const dateEl = document.getElementById("qDate");
+        const WA = "https://wa.me/528110778004?text=";
+        let currentModel = "este modelo";
+        const sel = { evento: "", visita: "" };
+
+        modal.querySelectorAll(".q-opts").forEach((group) => {
+          const key = group.getAttribute("data-q");
+          group.querySelectorAll(".q-opt").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const already = btn.classList.contains("sel");
+              group
+                .querySelectorAll(".q-opt")
+                .forEach((b) => b.classList.remove("sel"));
+              if (!already) {
+                btn.classList.add("sel");
+                sel[key] = btn.textContent.trim();
+              } else {
+                sel[key] = "";
+              }
+            });
+          });
+        });
+
+        function openModal(model) {
+          currentModel = model;
+          modelEl.innerHTML = "Modelo: <b>" + model + "</b>";
+          sel.evento = "";
+          sel.visita = "";
+          dateEl.value = "";
+          modal.querySelectorAll(".q-opt").forEach((b) => b.classList.remove("sel"));
+          modal.classList.add("open");
+          document.body.style.overflow = "hidden";
+        }
+        function closeModal() {
+          modal.classList.remove("open");
+          document.body.style.overflow = "";
+        }
+        function go(withDetails) {
+          let msg = "Hola, buen día. Me interesa este modelo: " + currentModel + ".";
+          if (withDetails) {
+            if (sel.evento) msg += " Evento: " + sel.evento + ".";
+            if (dateEl.value) {
+              const p = dateEl.value.split("-");
+              msg += " Fecha del evento: " + p[2] + "/" + p[1] + "/" + p[0] + ".";
+            }
+            if (sel.visita) msg += " Me gustaría visitarlos: " + sel.visita + ".";
+          }
+          msg +=
+            " ¿Me podrían dar información sobre disponibilidad, tallas y precio?";
+          window.open(WA + encodeURIComponent(msg), "_blank", "noopener");
+          closeModal();
+        }
+
+        document.getElementById("qGo").addEventListener("click", () => go(true));
+        document
+          .getElementById("qSkip")
+          .addEventListener("click", () => go(false));
+        document.getElementById("qClose").addEventListener("click", closeModal);
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.classList.contains("open"))
+            closeModal();
+        });
+
+        document
+          .querySelectorAll('a[href*="este%20modelo%3A"]')
+          .forEach((a) => {
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              let model = "este modelo";
+              try {
+                const t = decodeURIComponent(a.href.split("text=")[1] || "");
+                const m = t.match(/modelo:\s*(.+?)\.\s*¿/i);
+                if (m) model = m[1].trim();
+              } catch (_) {}
+              openModal(model);
+            });
+          });
       })();
 
       /* ── CATALOG TABS ── */
