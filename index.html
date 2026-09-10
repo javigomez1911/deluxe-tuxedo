@@ -195,29 +195,41 @@
         width: 20px;
         height: 1.5px;
         background: var(--text);
+        transform-origin: center;
         transition:
-          opacity 0.25s ease,
-          transform 0.25s ease;
+          opacity 0.3s ease,
+          transform 0.45s cubic-bezier(0.5, 0, 0.2, 1);
       }
-      /* Hamburger → moño (bow tie): las barras se desvanecen y aparece el
-         moño rojo (el propio botón es el único cierre del menú móvil). */
+      /* Hamburger → moño (bow tie): las 3 líneas se pliegan hacia el centro
+         (arriba y abajo giran hacia adentro, la del medio se encoge) mientras
+         el moño negro crece desde el centro — se lee como una transformación.
+         El propio botón es el único cierre del menú móvil. */
       .ham-bow {
         position: absolute;
         inset: 0;
         margin: auto;
-        width: 26px;
-        height: 26px;
-        fill: var(--red);
+        width: 27px;
+        height: 27px;
+        fill: var(--black);
         opacity: 0;
-        transform: scale(0.4) rotate(-10deg);
+        transform: scale(0.2) rotate(-25deg);
+        transform-origin: center;
         transition:
-          opacity 0.25s ease,
-          transform 0.4s cubic-bezier(0.34, 1.5, 0.64, 1);
+          opacity 0.35s ease 0.08s,
+          transform 0.5s cubic-bezier(0.34, 1.45, 0.5, 1) 0.06s;
         pointer-events: none;
       }
-      .ham[aria-expanded="true"] span {
+      .ham[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(6px) rotate(30deg) scaleX(0.5);
         opacity: 0;
-        transform: scaleX(0.3);
+      }
+      .ham[aria-expanded="true"] span:nth-child(2) {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+      .ham[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-6px) rotate(-30deg) scaleX(0.5);
+        opacity: 0;
       }
       .ham[aria-expanded="true"] .ham-bow {
         opacity: 1;
