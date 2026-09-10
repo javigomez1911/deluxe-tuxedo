@@ -435,88 +435,128 @@
         font-weight: 400;
       }
 
-      /* ────── NOSOTROS ────── */
+      /* ────── NOSOTROS — claro, editorial, animado ────── */
       #nosotros {
-        background: #181818;
-        padding: 40px 20px 0;
+        background: var(--white);
+        padding: 52px 20px;
       }
-      #nosotros .sh {
-        color: #fff;
-      }
-      /* Tagline oficial — highlighted */
+      /* Título grande y legible (misma familia que el hero). Cada palabra
+         entra desde una posición desplegada y se ensambla al aparecer. */
       .ab-tagline {
         font-family: "Manrope", sans-serif;
-        font-size: clamp(1.3rem, 5.5vw, 1.85rem);
-        font-weight: 700;
-        color: #fff;
-        line-height: 1.25;
-        letter-spacing: -0.01em;
-        margin-bottom: 16px;
+        font-size: clamp(2rem, 8vw, 3.2rem);
+        font-weight: 800;
+        color: var(--black);
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        margin-bottom: 22px;
+        max-width: 15ch;
       }
-      .ab-tagline-sub {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.65);
-        line-height: 1.75;
-        font-weight: 400;
-        margin-bottom: 28px;
+      .ab-w {
+        display: inline-block;
+        opacity: 0;
+        transform: translateX(calc(var(--dx) * 1px)) translateY(12px)
+          rotate(calc(var(--dx) * 0.06deg));
+        transition:
+          opacity 0.5s ease,
+          transform 0.7s cubic-bezier(0.2, 0.75, 0.2, 1);
+        transition-delay: calc(var(--i) * 65ms);
+        will-change: transform, opacity;
+      }
+      .ab-tagline.in .ab-w {
+        opacity: 1;
+        transform: none;
       }
       .ab-p {
         font-size: 15px;
-        color: rgba(255, 255, 255, 0.72);
+        color: #4a4540;
         line-height: 1.8;
         font-weight: 400;
         margin-bottom: 28px;
+        max-width: 46ch;
       }
       .ab-years {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 16px;
         margin-top: 24px;
-        padding-top: 22px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 24px;
+        border-top: 1px solid rgba(12, 12, 12, 0.1);
       }
       .ab-yn {
         font-family: "Manrope", sans-serif;
-        font-size: 4rem;
+        font-size: 4.2rem;
         font-weight: 800;
         color: var(--red);
-        line-height: 1;
+        line-height: 0.9;
+        letter-spacing: -0.03em;
       }
       .ab-yl {
         font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
+        font-weight: 700;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.45);
+        color: var(--muted);
         line-height: 1.75;
-        padding-left: 12px;
-        border-left: 1px solid rgba(255, 255, 255, 0.15);
+        padding-left: 14px;
+        border-left: 1px solid rgba(12, 12, 12, 0.15);
+      }
+      .ab-right-label {
+        font-family: "Manrope", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-top: 44px;
+        margin-bottom: 6px;
       }
       .pillars {
         display: flex;
         flex-direction: column;
-        margin-top: 28px;
+        margin-top: 20px;
       }
       .pillar {
         display: flex;
         align-items: baseline;
         gap: 18px;
         padding: 20px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        transition: border-color var(--t);
+        border-bottom: 1px solid rgba(12, 12, 12, 0.1);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s cubic-bezier(0.2, 0.75, 0.2, 1),
+          border-color var(--t);
       }
       .pillar:first-child {
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(12, 12, 12, 0.1);
       }
-      /* Numeral editorial: grande, con Manrope, en rojo tenue que se enciende */
+      /* Stagger de entrada por fila */
+      #nosotros .pillar.rv {
+        transform: translateY(18px);
+      }
+      #nosotros .pillar.rv.in {
+        transform: none;
+      }
+      #nosotros .pillar:nth-of-type(1) {
+        transition-delay: 0.05s;
+      }
+      #nosotros .pillar:nth-of-type(2) {
+        transition-delay: 0.13s;
+      }
+      #nosotros .pillar:nth-of-type(3) {
+        transition-delay: 0.21s;
+      }
+      #nosotros .pillar:nth-of-type(4) {
+        transition-delay: 0.29s;
+      }
       .pn {
         font-family: "Manrope", sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         font-weight: 800;
         color: var(--red);
-        opacity: 0.55;
+        opacity: 0.5;
         flex-shrink: 0;
-        width: 34px;
+        width: 36px;
         line-height: 1;
         letter-spacing: -0.02em;
         transition:
@@ -525,18 +565,18 @@
       }
       .pt {
         font-family: "Manrope", sans-serif;
-        font-size: 1rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        color: #fff;
+        color: var(--black);
         margin-bottom: 5px;
         letter-spacing: -0.01em;
       }
       .pb {
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.66);
+        font-size: 13.5px;
+        color: #5a544c;
         line-height: 1.7;
         font-weight: 400;
-        max-width: 40ch;
+        max-width: 42ch;
       }
       @media (hover: hover) {
         .pillar:hover {
@@ -1548,22 +1588,8 @@
       .c-item-body {
         padding-top: 2px;
       }
-      .c-social {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.95rem;
-      }
-      .c-social a {
-        color: rgba(255, 255, 255, 0.9);
-        transition: color var(--t);
-      }
-      .c-social-sep {
-        color: rgba(255, 255, 255, 0.25);
-      }
       @media (hover: hover) {
-        .c-val a:hover,
-        .c-social a:hover {
+        .c-val a:hover {
           color: var(--red);
         }
       }
@@ -1727,37 +1753,6 @@
         padding-top: 24px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
-      .foot-soc {
-        display: flex;
-        gap: 10px;
-      }
-      .foot-soc a {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition:
-          transform var(--t),
-          opacity var(--t);
-      }
-      .foot-soc a svg {
-        fill: #fff;
-      }
-      .foot-soc-ig {
-        background: linear-gradient(
-          135deg,
-          #f09433,
-          #e6683c 25%,
-          #dc2743 50%,
-          #cc2366 75%,
-          #bc1888
-        );
-      }
-      .foot-soc-fb {
-        background: #1877f2;
-      }
       .foot-copy {
         font-size: 10px;
         color: rgba(255, 255, 255, 0.28);
@@ -1766,9 +1761,6 @@
       @media (hover: hover) {
         .foot-links a:hover {
           color: #fff;
-        }
-        .foot-soc a:hover {
-          transform: translateY(-2px);
         }
       }
 
@@ -1809,7 +1801,8 @@
           transition-duration: 0.001ms !important;
           scroll-behavior: auto !important;
         }
-        .rv {
+        .rv,
+        .ab-w {
           opacity: 1 !important;
           transform: none !important;
         }
@@ -2254,13 +2247,17 @@
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 0;
+          align-items: center;
         }
         .ab-left {
-          padding: 66px 5%;
-          border-right: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 72px 5%;
+          border-right: 1px solid rgba(12, 12, 12, 0.1);
         }
         .ab-right {
-          padding: 66px 5%;
+          padding: 72px 5%;
+        }
+        .ab-right-label {
+          margin-top: 0;
         }
         /* PROMOCIONES: 3 columnas en desktop */
         #promociones {
@@ -2465,31 +2462,21 @@
     <!-- ══════ NOSOTROS ══════ -->
     <section id="nosotros">
       <div class="ab-left">
-        <div class="ey">
-          <span class="ey-l"></span
-          ><span class="ey-t">Deluxe Tuxedo · Monterrey</span>
-        </div>
-        <h2 class="ab-tagline">Calidad y diseño<br />a tu medida</h2>
-        <p class="ab-p">
+        <h2 class="ab-tagline" data-words>Calidad y diseño a tu medida</h2>
+        <p class="ab-p rv">
           Somos una empresa regiomontana con más de 25 años vistiendo novios,
           quinceañeras, graduados y familias para sus eventos más importantes.
           Renta y venta de trajes formales en 5 sucursales.
         </p>
-        <div class="ab-years">
+        <div class="ab-years rv">
           <div class="ab-yn">25</div>
           <div class="ab-yl">Años de<br />experiencia<br />en Monterrey</div>
         </div>
       </div>
-      <div
-        class="ab-right"
-        style="background: #1a1a1a; padding: 32px 20px 40px"
-      >
-        <div class="ey">
-          <span class="ey-l"></span
-          ><span class="ey-t">Por qué elegir Deluxe</span>
-        </div>
+      <div class="ab-right">
+        <div class="ab-right-label rv">Por qué elegirnos</div>
         <div class="pillars">
-          <div class="pillar">
+          <div class="pillar rv">
             <div class="pn">01</div>
             <div>
               <div class="pt">Atención personalizada</div>
@@ -2499,7 +2486,7 @@
               </div>
             </div>
           </div>
-          <div class="pillar">
+          <div class="pillar rv">
             <div class="pn">02</div>
             <div>
               <div class="pt">Amplia variedad de modelos</div>
@@ -2509,7 +2496,7 @@
               </div>
             </div>
           </div>
-          <div class="pillar">
+          <div class="pillar rv">
             <div class="pn">03</div>
             <div>
               <div class="pt">5 sucursales en Monterrey</div>
@@ -2519,7 +2506,7 @@
               </div>
             </div>
           </div>
-          <div class="pillar">
+          <div class="pillar rv">
             <div class="pn">04</div>
             <div>
               <div class="pt">Precio justo, calidad real</div>
@@ -5609,27 +5596,6 @@
               </div>
             </div>
           </div>
-          <div class="c-item">
-            <span class="c-ic"><svg><use href="#i-ig" /></svg></span>
-            <div class="c-item-body">
-              <div class="c-lbl">Redes sociales</div>
-              <div class="c-val c-social">
-                <a
-                  href="https://www.instagram.com/deluxe_tuxedo"
-                  target="_blank"
-                  rel="noopener"
-                  >Instagram</a
-                >
-                <span class="c-social-sep">·</span>
-                <a
-                  href="https://www.facebook.com/DeluxeTuxedoOficial"
-                  target="_blank"
-                  rel="noopener"
-                  >Facebook</a
-                >
-              </div>
-            </div>
-          </div>
         </div>
         <div class="c-col">
           <div class="c-info-box">
@@ -5685,24 +5651,6 @@
         </nav>
       </div>
       <div class="foot-bottom">
-        <div class="foot-soc">
-          <a
-            href="https://www.instagram.com/deluxe_tuxedo"
-            target="_blank"
-            rel="noopener"
-            class="foot-soc-ig"
-            aria-label="Instagram"
-            ><svg width="15" height="15"><use href="#i-ig" /></svg
-          ></a>
-          <a
-            href="https://www.facebook.com/DeluxeTuxedoOficial"
-            target="_blank"
-            rel="noopener"
-            class="foot-soc-fb"
-            aria-label="Facebook"
-            ><svg width="15" height="15"><use href="#i-fb" /></svg
-          ></a>
-        </div>
         <div class="foot-copy">
           © 2025 Deluxe Tuxedo · Todos los derechos reservados
         </div>
@@ -5816,6 +5764,42 @@
         { threshold: 0.06 },
       );
       document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+
+      /* ── NOSOTROS: título que se ensambla palabra por palabra al entrar ──
+         Si no hay JS, IntersectionObserver, o el usuario pidió menos
+         movimiento, se queda el texto plano y visible (nunca oculto). */
+      (function () {
+        const h = document.querySelector(".ab-tagline[data-words]");
+        if (!h || reduceMotion || !("IntersectionObserver" in window)) return;
+        const words = h.textContent.trim().split(/\s+/);
+        const center = (words.length - 1) / 2;
+        h.innerHTML = words
+          .map((w, i) => {
+            const dx = Math.round((i - center) * 46);
+            return (
+              '<span class="ab-w" style="--i:' +
+              i +
+              ";--dx:" +
+              dx +
+              '">' +
+              w +
+              "</span>"
+            );
+          })
+          .join(" ");
+        const io2 = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                h.classList.add("in");
+                io2.disconnect();
+              }
+            });
+          },
+          { threshold: 0.25 },
+        );
+        io2.observe(h);
+      })();
 
       /* ── STAGGER for cards ── */
       const stIO = new IntersectionObserver(
