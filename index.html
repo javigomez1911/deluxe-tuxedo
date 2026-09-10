@@ -370,10 +370,35 @@
         color: #fff;
         margin-bottom: 16px;
       }
-      .hero-h em {
-        font-style: normal;
-        font-weight: 800;
+      /* Palabra que rota en rojo (boda, XV años, graduación...) — el JS
+         intercambia la palabra con letras que suben/entran escalonadas.
+         Sin JS o con "reducir movimiento" queda estático "evento especial". */
+      .hero-rot {
+        display: inline-block;
         color: var(--red);
+        overflow: hidden;
+        vertical-align: bottom;
+        padding-top: 0.16em;
+        margin-top: -0.16em;
+      }
+      .hero-rot-c {
+        display: inline-block;
+        white-space: pre;
+        transform: translateY(112%);
+        opacity: 0;
+        transition:
+          transform 0.55s cubic-bezier(0.2, 0.75, 0.2, 1),
+          opacity 0.5s ease;
+        transition-delay: calc(var(--i) * 22ms);
+        will-change: transform, opacity;
+      }
+      .hero-rot-c.is-in {
+        transform: none;
+        opacity: 1;
+      }
+      .hero-rot-c.is-out {
+        transform: translateY(-112%);
+        opacity: 0;
       }
       .hero-p {
         font-size: 15px;
@@ -2437,7 +2462,14 @@
             >Monterrey, N.L. · 25 años de experiencia</span
           >
         </div>
-        <h1 class="hero-h">Trajes para tu<br />evento <em>especial</em></h1>
+        <h1 class="hero-h" aria-label="Trajes para tu evento especial">
+          Trajes para tu<br /><span
+            class="hero-rot"
+            id="heroRot"
+            aria-hidden="true"
+            >evento especial</span
+          >
+        </h1>
         <p class="hero-p">
           Bodas · Graduaciones · XV Años · Eventos de Etiqueta<br />Renta y
           venta en Monterrey desde el año 2000.
@@ -5799,6 +5831,57 @@
           { threshold: 0.25 },
         );
         io2.observe(h);
+      })();
+
+      /* ── HERO: palabra roja que rota (boda, XV años, graduación…) ──
+         Sin JS o con "reducir movimiento" queda el texto estático. */
+      (function () {
+        const rot = document.getElementById("heroRot");
+        if (!rot || reduceMotion) return;
+        const words = ["boda", "graduación", "XV años", "fiesta", "reunión"];
+        const STAGGER = 22,
+          ENTER = 520,
+          HOLD = 1700,
+          EXIT = 340;
+        let idx = -1;
+
+        function build(word) {
+          rot.innerHTML = "";
+          const spans = [];
+          word.split("").forEach((ch, i) => {
+            const s = document.createElement("span");
+            s.className = "hero-rot-c";
+            s.style.setProperty("--i", i);
+            s.textContent = ch;
+            rot.appendChild(s);
+            spans.push(s);
+          });
+          return spans;
+        }
+        function enter(word) {
+          const spans = build(word);
+          void rot.offsetWidth; // reflow
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() =>
+              spans.forEach((s) => s.classList.add("is-in")),
+            ),
+          );
+        }
+        function exitThenNext() {
+          const cs = rot.querySelectorAll(".hero-rot-c");
+          cs.forEach((c, i) => {
+            c.style.transitionDelay = i * STAGGER + "ms";
+            c.classList.remove("is-in");
+            c.classList.add("is-out");
+          });
+          setTimeout(step, EXIT + cs.length * STAGGER * 0.5);
+        }
+        function step() {
+          idx = (idx + 1) % words.length;
+          enter(words[idx]);
+          setTimeout(exitThenNext, ENTER + HOLD);
+        }
+        step();
       })();
 
       /* ── STAGGER for cards ── */
