@@ -499,36 +499,53 @@
       }
       .pillar {
         display: flex;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 16px 0;
+        align-items: baseline;
+        gap: 18px;
+        padding: 20px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: border-color var(--t);
       }
       .pillar:first-child {
         border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
+      /* Numeral editorial: grande, con Manrope, en rojo tenue que se enciende */
       .pn {
         font-family: "Manrope", sans-serif;
-        font-size: 1rem;
-        font-weight: 500;
-        color: rgba(181, 19, 42, 0.6);
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--red);
+        opacity: 0.55;
         flex-shrink: 0;
-        width: 22px;
-        line-height: 1.2;
+        width: 34px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        transition:
+          opacity var(--t),
+          transform var(--t);
       }
       .pt {
-        font-family: "Inter", sans-serif;
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.88);
-        margin-bottom: 4px;
-        letter-spacing: 0.02em;
+        font-family: "Manrope", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 5px;
+        letter-spacing: -0.01em;
       }
       .pb {
         font-size: 13px;
-        color: rgba(255, 255, 255, 0.58);
+        color: rgba(255, 255, 255, 0.66);
         line-height: 1.7;
         font-weight: 400;
+        max-width: 40ch;
+      }
+      @media (hover: hover) {
+        .pillar:hover {
+          border-bottom-color: rgba(181, 19, 42, 0.5);
+        }
+        .pillar:hover .pn {
+          opacity: 1;
+          transform: translateY(-2px);
+        }
       }
 
       /* ────── CATÁLOGO MOBILE ────── */
@@ -1494,6 +1511,62 @@
       .c-val a:active {
         color: var(--red);
       }
+      .c-intro {
+        font-size: 14px;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 46ch;
+        margin: 4px 0 28px;
+      }
+      /* Métodos de contacto con ícono — dan peso a la columna izquierda */
+      .c-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .c-item:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .c-ic {
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(181, 19, 42, 0.12);
+        border: 1px solid rgba(181, 19, 42, 0.35);
+      }
+      .c-ic svg {
+        width: 18px;
+        height: 18px;
+        fill: var(--red);
+      }
+      .c-item-body {
+        padding-top: 2px;
+      }
+      .c-social {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.95rem;
+      }
+      .c-social a {
+        color: rgba(255, 255, 255, 0.9);
+        transition: color var(--t);
+      }
+      .c-social-sep {
+        color: rgba(255, 255, 255, 0.25);
+      }
+      @media (hover: hover) {
+        .c-val a:hover,
+        .c-social a:hover {
+          color: var(--red);
+        }
+      }
       .c-info-box {
         background: rgba(255, 255, 255, 0.035);
         border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1591,51 +1664,112 @@
       footer {
         background: var(--black);
         border-top: 1px solid rgba(255, 255, 255, 0.07);
-        padding: 28px 20px calc(24px + var(--safe-bot));
+        /* El extra abajo evita que el botón flotante de WhatsApp tape el texto */
+        padding: 36px 20px calc(84px + var(--safe-bot));
         display: flex;
         flex-direction: column;
-        gap: 18px;
+        gap: 28px;
       }
-      .foot-logo {
+      .foot-top {
         display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
+      .foot-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      /* El logo trae "TUXEDO" y el moño en gris oscuro sobre fondo transparente,
+         invisibles en negro. Lo montamos en un chip crema (color de marca) para
+         que se lea completo, igual que en el nav. */
+      .foot-logo {
+        display: inline-flex;
+        align-self: flex-start;
         align-items: center;
-        gap: 9px;
-        background: transparent;
-        border: none;
-        box-shadow: none;
+        background: var(--cream);
+        padding: 10px 16px;
+        border-radius: 4px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+      }
+      .foot-logo .logo-img {
+        height: 44px;
+      }
+      .foot-tagline {
+        font-size: 13px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.5);
+        max-width: 34ch;
+        font-weight: 400;
       }
       .foot-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px 18px;
+        gap: 12px 20px;
       }
       .foot-links a {
         font-size: 10px;
         font-weight: 600;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.45);
         transition: color var(--t);
       }
       .foot-links a:active {
-        color: rgba(255, 255, 255, 0.8);
+        color: #fff;
+      }
+      .foot-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
       .foot-soc {
         display: flex;
-        gap: 8px;
+        gap: 10px;
       }
       .foot-soc a {
-        width: 28px;
-        height: 28px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition:
+          transform var(--t),
+          opacity var(--t);
+      }
+      .foot-soc a svg {
+        fill: #fff;
+      }
+      .foot-soc-ig {
+        background: linear-gradient(
+          135deg,
+          #f09433,
+          #e6683c 25%,
+          #dc2743 50%,
+          #cc2366 75%,
+          #bc1888
+        );
+      }
+      .foot-soc-fb {
+        background: #1877f2;
       }
       .foot-copy {
-        font-size: 9.5px;
-        color: rgba(255, 255, 255, 0.18);
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.28);
         letter-spacing: 0.04em;
+      }
+      @media (hover: hover) {
+        .foot-links a:hover {
+          color: #fff;
+        }
+        .foot-soc a:hover {
+          transform: translateY(-2px);
+        }
       }
 
       /* ────── LOGO IMAGE ────── */
@@ -2102,10 +2236,18 @@
           padding: 60px 5% 36px;
         }
         footer {
+          padding: 48px 5% 72px;
+          gap: 30px;
+        }
+        .foot-top {
           flex-direction: row;
-          align-items: center;
+          align-items: flex-start;
           justify-content: space-between;
-          padding: 32px 5%;
+          gap: 40px;
+        }
+        .foot-links {
+          justify-content: flex-end;
+          max-width: 55%;
         }
         /* Nosotros: two-col desktop */
         #nosotros {
@@ -2188,6 +2330,11 @@
         />
       </symbol>
       <symbol id="i-arr" viewBox="0 0 24 24"><path d="M8 5l8 7-8 7" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <path
+          d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+        />
+      </symbol>
       <symbol id="i-suit" viewBox="0 0 22 22">
         <path d="M11 2L9 8l2 2 2-2z" fill="white" />
         <path d="M4 8L3 20h16L18 8z" fill="rgba(255,255,255,.85)" />
@@ -5433,21 +5580,54 @@
         <span class="ey-l"></span><span class="ey-t">Contacto</span>
       </div>
       <h2 class="sh">Contáctanos</h2>
+      <p class="c-intro">
+        Estamos para ayudarte a encontrar el traje perfecto. Escríbenos o
+        visítanos en cualquiera de nuestras sucursales.
+      </p>
       <div class="c-grid">
         <div class="c-col">
-          <div class="c-block">
-            <div class="c-lbl">Teléfonos Generales</div>
-            <div class="c-val">
-              <a href="tel:8110778004">(81) 1077-8004</a><br /><a
-                href="tel:8183621118"
-                >(81) 8362-1118</a
-              >
+          <div class="c-item">
+            <span class="c-ic"><svg><use href="#i-ph" /></svg></span>
+            <div class="c-item-body">
+              <div class="c-lbl">Teléfonos</div>
+              <div class="c-val">
+                <a href="tel:8110778004">(81) 1077-8004</a><br /><a
+                  href="tel:8183621118"
+                  >(81) 8362-1118</a
+                >
+              </div>
             </div>
           </div>
-          <div class="c-block">
-            <div class="c-lbl">Correo Electrónico</div>
-            <div class="c-val">
-              <a href="mailto:ventas@deluxetuxedo.mx">ventas@deluxetuxedo.mx</a>
+          <div class="c-item">
+            <span class="c-ic"><svg><use href="#i-mail" /></svg></span>
+            <div class="c-item-body">
+              <div class="c-lbl">Correo</div>
+              <div class="c-val">
+                <a href="mailto:ventas@deluxetuxedo.mx"
+                  >ventas@deluxetuxedo.mx</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="c-item">
+            <span class="c-ic"><svg><use href="#i-ig" /></svg></span>
+            <div class="c-item-body">
+              <div class="c-lbl">Redes sociales</div>
+              <div class="c-val c-social">
+                <a
+                  href="https://www.instagram.com/deluxe_tuxedo"
+                  target="_blank"
+                  rel="noopener"
+                  >Instagram</a
+                >
+                <span class="c-social-sep">·</span>
+                <a
+                  href="https://www.facebook.com/DeluxeTuxedoOficial"
+                  target="_blank"
+                  rel="noopener"
+                  >Facebook</a
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -5482,42 +5662,50 @@
 
     <!-- FOOTER -->
     <footer>
-      <a href="#inicio" class="foot-logo" aria-label="Deluxe Tuxedo">
-        <img
-          src="Logo y Portada/Logo.png"
-          alt="Deluxe Tuxedo"
-          class="logo-img"
-          loading="lazy"
-          decoding="async"
-        />
-      </a>
-      <nav class="foot-links" aria-label="Pie de página">
-        <a href="#inicio">Inicio</a><a href="#nosotros">Nosotros</a
-        ><a href="#catalogo">Catálogo</a><a href="#promociones">Promociones</a
-        ><a href="#sucursales">Sucursales</a
-        ><a href="#contacto">Contacto</a>
-      </nav>
-      <div class="foot-soc">
-        <a
-          href="https://www.instagram.com/deluxe_tuxedo"
-          target="_blank"
-          rel="noopener"
-          style="
-            background: linear-gradient(
-              135deg,
-              #f09433,
-              #e6683c 25%,
-              #dc2743 50%,
-              #cc2366 75%,
-              #bc1888
-            );
-          "
-          aria-label="Instagram"
-          ><svg width="14" height="14" fill="white"><use href="#i-ig" /></svg
-        ></a>
+      <div class="foot-top">
+        <div class="foot-brand">
+          <a href="#inicio" class="foot-logo" aria-label="Deluxe Tuxedo">
+            <img
+              src="Logo y Portada/Logo.png"
+              alt="Deluxe Tuxedo"
+              class="logo-img"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <p class="foot-tagline">
+            Renta y venta de trajes formales en Monterrey desde el año 2000.
+          </p>
+        </div>
+        <nav class="foot-links" aria-label="Pie de página">
+          <a href="#inicio">Inicio</a><a href="#nosotros">Nosotros</a
+          ><a href="#catalogo">Catálogo</a><a href="#promociones">Promociones</a
+          ><a href="#sucursales">Sucursales</a
+          ><a href="#contacto">Contacto</a>
+        </nav>
       </div>
-      <div class="foot-copy">
-        © 2025 Deluxe Tuxedo · Todos los derechos reservados
+      <div class="foot-bottom">
+        <div class="foot-soc">
+          <a
+            href="https://www.instagram.com/deluxe_tuxedo"
+            target="_blank"
+            rel="noopener"
+            class="foot-soc-ig"
+            aria-label="Instagram"
+            ><svg width="15" height="15"><use href="#i-ig" /></svg
+          ></a>
+          <a
+            href="https://www.facebook.com/DeluxeTuxedoOficial"
+            target="_blank"
+            rel="noopener"
+            class="foot-soc-fb"
+            aria-label="Facebook"
+            ><svg width="15" height="15"><use href="#i-fb" /></svg
+          ></a>
+        </div>
+        <div class="foot-copy">
+          © 2025 Deluxe Tuxedo · Todos los derechos reservados
+        </div>
       </div>
     </footer>
 
