@@ -11,7 +11,7 @@
          contactarse desde otro dominio. -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'self'; object-src 'none'; frame-src 'none'; form-action 'self'; upgrade-insecure-requests"
+      content="default-src 'self'; base-uri 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self'; object-src 'none'; frame-src 'none'; form-action 'self'; upgrade-insecure-requests"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
@@ -744,13 +744,8 @@
         object-fit: cover;
         object-position: center top;
         padding: 0;
-        opacity: 0;
-        transition:
-          opacity 0.3s ease,
-          transform 0.4s;
-      }
-      .pci img.on {
         opacity: 1;
+        transition: transform 0.4s;
       }
       /* Badge */
       .pc-badge {
@@ -966,10 +961,6 @@
       .fg-img img {
         width: 100%;
         height: auto;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-      .fg-img img.on {
         opacity: 1;
       }
       /* Full-suit image override: show complete garment without crop */
@@ -1213,13 +1204,8 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        opacity: 0;
-        transition:
-          opacity 0.3s ease,
-          transform 0.4s;
-      }
-      .br-img img.on {
         opacity: 1;
+        transition: transform 0.4s;
       }
       .br-num {
         position: absolute;
@@ -1837,6 +1823,11 @@
           animation-duration: 52s !important;
           animation-iteration-count: infinite !important;
         }
+        /* La palabra roja rotante mantiene su deslizamiento (el usuario la
+           pidió explícitamente); es un movimiento pequeño y acotado. */
+        .hero-rot-c {
+          transition-duration: 0.55s !important;
+        }
       }
       @media (prefers-reduced-motion: reduce) and (min-width: 960px) {
         .brands-track {
@@ -2267,12 +2258,13 @@
           justify-content: flex-end;
           max-width: 55%;
         }
-        /* Nosotros: two-col desktop */
+        /* Nosotros: two-col desktop (columnas alineadas arriba para no dejar
+           un hueco blanco encima del título) */
         #nosotros {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 0;
-          align-items: center;
+          align-items: stretch;
         }
         .ab-left {
           padding: 72px 5%;
@@ -5837,7 +5829,9 @@
          Sin JS o con "reducir movimiento" queda el texto estático. */
       (function () {
         const rot = document.getElementById("heroRot");
-        if (!rot || reduceMotion) return;
+        // La palabra roja rota siempre (el usuario la quiere), incluso con
+        // "reducir movimiento" activado; es un cambio de texto pequeño.
+        if (!rot) return;
         const words = ["boda", "graduación", "XV años", "fiesta", "reunión"];
         const STAGGER = 22,
           ENTER = 520,
