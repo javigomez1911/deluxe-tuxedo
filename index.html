@@ -1652,55 +1652,6 @@
         line-height: 1.75;
         font-weight: 400;
       }
-      /* ────── FLOAT WA ────── */
-      .wa-float {
-        position: fixed;
-        bottom: calc(20px + var(--safe-bot));
-        right: 18px;
-        z-index: 700;
-        width: 52px;
-        height: 52px;
-        background: #25d366;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
-        transition:
-          transform 0.22s,
-          box-shadow 0.22s;
-        animation: wa-pulse 2.6s ease-in-out infinite;
-      }
-      /* Pulso suave: anillo que se expande y desvanece, sin mover el botón */
-      @keyframes wa-pulse {
-        0% {
-          box-shadow:
-            0 4px 20px rgba(37, 211, 102, 0.45),
-            0 0 0 0 rgba(37, 211, 102, 0.45);
-        }
-        70% {
-          box-shadow:
-            0 4px 20px rgba(37, 211, 102, 0.45),
-            0 0 0 14px rgba(37, 211, 102, 0);
-        }
-        100% {
-          box-shadow:
-            0 4px 20px rgba(37, 211, 102, 0.45),
-            0 0 0 0 rgba(37, 211, 102, 0);
-        }
-      }
-      .wa-float:hover {
-        transform: scale(1.06);
-      }
-      .wa-float svg {
-        width: 24px;
-        height: 24px;
-        fill: #fff;
-      }
-      .wa-float:active {
-        transform: scale(0.95);
-      }
-
       /* ────── FOOTER ────── */
       footer {
         background: var(--black);
@@ -5883,17 +5834,6 @@
         </div>
       </div>
     </footer>
-
-    <!-- WHATSAPP FLOAT -->
-    <a
-      href="https://wa.me/528110778004?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20cita%20en%20Deluxe%20Tuxedo"
-      target="_blank"
-      rel="noopener"
-      class="wa-float"
-      aria-label="WhatsApp"
-    >
-      <svg><use href="#i-wa" /></svg>
-    </a>
 
     <!-- VENTANA RÁPIDA: 2-3 toques antes de WhatsApp (catálogo) -->
     <div
