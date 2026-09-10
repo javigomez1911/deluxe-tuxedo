@@ -175,29 +175,6 @@
         align-items: center;
         gap: 8px;
       }
-      /* WhatsApp pill in nav — always visible */
-      .nav-wa {
-        display: none; /* shown at 640px+ */
-        align-items: center;
-        gap: 6px;
-        background: #25d366;
-        color: #fff;
-        padding: 8px 14px;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        border-radius: 100px;
-        transition: opacity var(--t);
-      }
-      .nav-wa svg {
-        width: 13px;
-        height: 13px;
-        fill: #fff;
-      }
-      .nav-wa:active {
-        opacity: 0.85;
-      }
       /* Hamburger */
       .ham {
         display: flex;
@@ -266,34 +243,6 @@
       .mob a:hover {
         color: var(--red);
       }
-      .mob .mob-wa {
-        margin-top: 24px;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: #25d366;
-        color: #fff;
-        width: auto;
-        padding: 12px 24px;
-        border-radius: 100px;
-        border-bottom: none;
-        font-family: "Manrope", sans-serif;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-align: center;
-      }
-      .mob .mob-wa:active,
-      .mob .mob-wa:hover {
-        color: #fff;
-        opacity: 0.85;
-      }
-      .mob-wa svg {
-        width: 16px;
-        height: 16px;
-        fill: #fff;
-      }
-
       /* Desktop nav links — hidden on mobile */
       .nav-ul {
         display: none;
@@ -2163,9 +2112,6 @@
         #nav {
           padding: 0 28px;
         }
-        .nav-wa {
-          display: inline-flex;
-        }
         #inicio {
           min-height: 100svh;
         }
@@ -2530,16 +2476,6 @@
         <li><a href="#contacto">Contacto</a></li>
       </ul>
       <div class="nav-right">
-        <a
-          href="https://wa.me/528110778004?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20cita"
-          target="_blank"
-          rel="noopener"
-          class="nav-wa"
-          aria-label="WhatsApp"
-        >
-          <svg><use href="#i-wa" /></svg
-          ><span style="display: none" id="nav-wa-txt">Reservar</span>
-        </a>
         <button class="ham" id="hambtn" aria-label="Menú" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -2554,13 +2490,6 @@
       <a href="#promociones" class="mob-lnk">Promociones</a>
       <a href="#sucursales" class="mob-lnk">Sucursales</a>
       <a href="#contacto" class="mob-lnk">Contacto</a>
-      <a
-        href="https://wa.me/528110778004?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20cita"
-        target="_blank"
-        rel="noopener"
-        class="mob-wa"
-        ><svg><use href="#i-wa" /></svg>Reservar por WhatsApp</a
-      >
     </div>
 
     <!-- ══════ POPUP PROMO GRADUADOS ══════ -->
@@ -5895,17 +5824,13 @@
 
       /* ── NAVBAR ── */
       const nav = document.getElementById("nav");
-      const waNavTxt = document.getElementById("nav-wa-txt");
       window.addEventListener(
         "scroll",
         () => {
           nav.classList.toggle("stuck", scrollY > 8);
-          // Show WA text label on desktop only
-          if (window.innerWidth >= 640) waNavTxt.style.display = "inline";
         },
         { passive: true },
       );
-      if (window.innerWidth >= 640) waNavTxt.style.display = "inline";
 
       /* ── MOBILE MENU ── */
       const mob = document.getElementById("mobmenu");
@@ -5924,7 +5849,7 @@
         mob.classList.contains("open") ? closeMenu() : openMenu()
       );
       mob
-        .querySelectorAll(".mob-lnk,.mob-wa")
+        .querySelectorAll(".mob-lnk")
         .forEach((l) => l.addEventListener("click", closeMenu));
 
       /* ── NOSOTROS: oculto hasta que el cliente pique "Nosotros" ── */
