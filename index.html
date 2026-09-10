@@ -461,6 +461,10 @@
       }
 
       /* ────── NOSOTROS — claro, editorial, animado ────── */
+      /* Oculto por defecto: solo aparece cuando el cliente pica "Nosotros". */
+      #nosotros.is-collapsed {
+        display: none !important;
+      }
       #nosotros {
         background: var(--white);
         padding: 52px 20px;
@@ -2484,7 +2488,7 @@
     </section>
 
     <!-- ══════ NOSOTROS ══════ -->
-    <section id="nosotros">
+    <section id="nosotros" class="is-collapsed">
       <div class="ab-left">
         <h2 class="ab-tagline" data-words>Calidad y diseño a tu medida</h2>
         <p class="ab-p rv">
@@ -5731,6 +5735,36 @@
       mob
         .querySelectorAll(".mob-lnk,.mob-wa")
         .forEach((l) => l.addEventListener("click", closeMenu));
+
+      /* ── NOSOTROS: oculto hasta que el cliente pique "Nosotros" ── */
+      (function () {
+        const sec = document.getElementById("nosotros");
+        if (!sec) return;
+        function revealNosotros() {
+          sec.classList.remove("is-collapsed");
+          // asegurar contenido + animaciones al revelar
+          sec.querySelectorAll(".rv").forEach((el) => el.classList.add("in"));
+          const tag = sec.querySelector(".ab-tagline");
+          if (tag) tag.classList.add("in");
+        }
+        document.querySelectorAll('a[href="#nosotros"]').forEach((a) => {
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            revealNosotros();
+            closeMenu();
+            history.replaceState(null, "", "#nosotros");
+            setTimeout(
+              () => sec.scrollIntoView({ behavior: "smooth", block: "start" }),
+              80,
+            );
+          });
+        });
+        // Enlace directo: si alguien llega con #nosotros en la URL, mostrarlo.
+        if (location.hash === "#nosotros") {
+          revealNosotros();
+          setTimeout(() => sec.scrollIntoView({ block: "start" }), 120);
+        }
+      })();
 
       /* ── CATALOG TABS ── */
       // All tabs across both mobile tabs and desktop sidebar share data-panel
