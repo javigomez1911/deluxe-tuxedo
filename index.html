@@ -6039,17 +6039,34 @@
           document.body.style.overflow = "";
         }
         function go(withDetails) {
-          let msg = "Hola, buen día. Me interesa este modelo: " + currentModel + ".";
+          // Mensaje estructurado (saltos de línea + *negrita*) para que
+          // recepción lo lea de un vistazo. WhatsApp respeta \n y *negrita*.
+          const NL = "\n";
+          const bullets = [];
           if (withDetails) {
-            if (sel.evento) msg += " Evento: " + sel.evento + ".";
+            if (sel.evento) bullets.push("• Evento: " + sel.evento);
             if (dateEl.value) {
               const p = dateEl.value.split("-");
-              msg += " Fecha del evento: " + p[2] + "/" + p[1] + "/" + p[0] + ".";
+              bullets.push("• Fecha del evento: " + p[2] + "/" + p[1] + "/" + p[0]);
             }
-            if (sel.visita) msg += " Me gustaría visitarlos: " + sel.visita + ".";
+            if (sel.visita) bullets.push("• Visita preferida: " + sel.visita);
+          }
+          let msg =
+            "Hola, buen día 👋" +
+            NL +
+            NL +
+            "Me interesa este modelo del catálogo:" +
+            NL +
+            "*" +
+            currentModel +
+            "*";
+          if (bullets.length) {
+            msg += NL + NL + "📋 *Detalles del cliente:*" + NL + bullets.join(NL);
           }
           msg +=
-            " ¿Me podrían dar información sobre disponibilidad, tallas y precio?";
+            NL +
+            NL +
+            "¿Me podrían dar información sobre disponibilidad, tallas y precio? ¡Gracias!";
           window.open(WA + encodeURIComponent(msg), "_blank", "noopener");
           closeModal();
         }
