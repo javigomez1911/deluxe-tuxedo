@@ -235,39 +235,108 @@
       }
 
       /* ────── MOBILE FULLSCREEN MENU ────── */
+      /* ── MENÚ MÓVIL KINÉTICO ──
+         Al abrir: 3 paneles entran deslizándose desde la derecha por capas
+         (rojo → rojo oscuro → negro) y los links suben girando, escalonados. */
       .mob {
         position: fixed;
         inset: 0;
         z-index: 800;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .mob.open {
+        pointer-events: auto;
+      }
+      /* Paneles que entran por capas */
+      .mob-panel {
+        position: absolute;
+        inset: 0;
+        transform: translateX(101%);
+        transition: transform 0.62s cubic-bezier(0.65, 0.01, 0.05, 0.99);
+        will-change: transform;
+      }
+      .mob-p1 {
+        background: var(--red);
+      }
+      .mob-p2 {
+        background: #7d0d1c;
+      }
+      .mob-p3 {
         background: var(--black);
+      }
+      .mob.open .mob-panel {
+        transform: translateX(0);
+      }
+      .mob.open .mob-p2 {
+        transition-delay: 0.09s;
+      }
+      .mob.open .mob-p3 {
+        transition-delay: 0.18s;
+      }
+      /* Contenedor de links (encima de los paneles) */
+      .mob-links {
+        position: relative;
+        z-index: 2;
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.35s;
-        gap: 0;
       }
-      .mob.open {
-        opacity: 1;
-        pointer-events: all;
-      }
-      .mob a {
-        font-family: "Manrope", sans-serif;
-        font-size: 1.9rem;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.85);
-        padding: 11px 40px;
+      /* Cada link: máscara que oculta el texto antes de "subir" a su lugar */
+      .mob-lnk {
+        display: block;
+        overflow: hidden;
         width: 100%;
         text-align: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        transition: color var(--t);
-        letter-spacing: 0.01em;
+        padding: 11px 40px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       }
-      .mob a:active,
-      .mob a:hover {
+      .mob-lnk-t {
+        display: inline-block;
+        font-family: "Manrope", sans-serif;
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 0.01em;
+        transform: translateY(115%) rotate(6deg);
+        opacity: 0;
+        transition: transform 0.7s cubic-bezier(0.65, 0.01, 0.05, 0.99),
+          opacity 0.5s ease, color 0.2s ease;
+        will-change: transform;
+      }
+      .mob.open .mob-lnk-t {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+      }
+      .mob.open .mob-lnk:nth-child(1) .mob-lnk-t {
+        transition-delay: 0.3s;
+      }
+      .mob.open .mob-lnk:nth-child(2) .mob-lnk-t {
+        transition-delay: 0.36s;
+      }
+      .mob.open .mob-lnk:nth-child(3) .mob-lnk-t {
+        transition-delay: 0.42s;
+      }
+      .mob.open .mob-lnk:nth-child(4) .mob-lnk-t {
+        transition-delay: 0.48s;
+      }
+      .mob.open .mob-lnk:nth-child(5) .mob-lnk-t {
+        transition-delay: 0.54s;
+      }
+      .mob.open .mob-lnk:nth-child(6) .mob-lnk-t {
+        transition-delay: 0.6s;
+      }
+      .mob-lnk:active .mob-lnk-t {
         color: var(--red);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mob-panel,
+        .mob-lnk-t {
+          transition-duration: 0.001s;
+          transition-delay: 0s;
+        }
       }
       /* Desktop nav links — hidden on mobile */
       .nav-ul {
@@ -2781,13 +2850,18 @@
     </nav>
 
     <!-- MOBILE FULLSCREEN MENU -->
-    <div class="mob" id="mobmenu" role="dialog">
-      <a href="#inicio" class="mob-lnk">Inicio</a>
-      <a href="#nosotros" class="mob-lnk">Nosotros</a>
-      <a href="#catalogo" class="mob-lnk">Catálogo</a>
-      <a href="#sucursales" class="mob-lnk">Sucursales</a>
-      <a href="#promociones" class="mob-lnk">Promociones</a>
-      <a href="#contacto" class="mob-lnk">Contacto</a>
+    <div class="mob" id="mobmenu" role="dialog" aria-modal="true" aria-label="Menú">
+      <div class="mob-panel mob-p1" aria-hidden="true"></div>
+      <div class="mob-panel mob-p2" aria-hidden="true"></div>
+      <div class="mob-panel mob-p3" aria-hidden="true"></div>
+      <nav class="mob-links">
+        <a href="#inicio" class="mob-lnk"><span class="mob-lnk-t">Inicio</span></a>
+        <a href="#nosotros" class="mob-lnk"><span class="mob-lnk-t">Nosotros</span></a>
+        <a href="#catalogo" class="mob-lnk"><span class="mob-lnk-t">Catálogo</span></a>
+        <a href="#sucursales" class="mob-lnk"><span class="mob-lnk-t">Sucursales</span></a>
+        <a href="#promociones" class="mob-lnk"><span class="mob-lnk-t">Promociones</span></a>
+        <a href="#contacto" class="mob-lnk"><span class="mob-lnk-t">Contacto</span></a>
+      </nav>
     </div>
 
     <!-- ══════ POPUP PROMO GRADUADOS ══════ -->
