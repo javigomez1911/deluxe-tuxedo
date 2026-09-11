@@ -122,8 +122,22 @@
         background: rgba(255, 255, 255, 0.98);
         border-bottom: 1px solid transparent;
         transition:
+          transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
           border-color var(--t),
           box-shadow var(--t);
+      }
+      /* En computadora: la barra se oculta al bajar y reaparece al subir
+         (la clase la controla el JS, solo en pantallas grandes). */
+      .nav-up #nav {
+        transform: translateY(-100%);
+      }
+      .nav-up .cat-tabs {
+        top: 0;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #nav {
+          transition: border-color var(--t), box-shadow var(--t);
+        }
       }
       #nav.stuck {
         border-bottom-color: var(--border);
@@ -5958,13 +5972,32 @@
 
       /* ── NAVBAR ── */
       const nav = document.getElementById("nav");
-      window.addEventListener(
-        "scroll",
-        () => {
-          nav.classList.toggle("stuck", scrollY > 8);
-        },
-        { passive: true },
-      );
+      const rootEl = document.documentElement;
+      const deskMQ = window.matchMedia("(min-width: 960px)");
+      let lastNavY = window.scrollY;
+      const NAV_DELTA = 6; // ignora micro-scrolls
+      const NAV_TOPZONE = 120; // cerca del inicio la barra siempre se ve
+      function updateNav() {
+        const y = window.scrollY;
+        nav.classList.toggle("stuck", y > 8);
+        // Ocultar al bajar / mostrar al subir — solo en computadora
+        if (deskMQ.matches) {
+          if (y < NAV_TOPZONE) {
+            rootEl.classList.remove("nav-up");
+          } else if (y > lastNavY + NAV_DELTA) {
+            rootEl.classList.add("nav-up"); // bajando
+          } else if (y < lastNavY - NAV_DELTA) {
+            rootEl.classList.remove("nav-up"); // subiendo
+          }
+        } else {
+          rootEl.classList.remove("nav-up");
+        }
+        lastNavY = y;
+      }
+      window.addEventListener("scroll", updateNav, { passive: true });
+      deskMQ.addEventListener("change", (e) => {
+        if (!e.matches) rootEl.classList.remove("nav-up");
+      });
 
       /* ── MOBILE MENU ── */
       const mob = document.getElementById("mobmenu");
