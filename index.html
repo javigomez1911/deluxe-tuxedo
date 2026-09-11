@@ -2605,6 +2605,39 @@
           width: 175px;
         }
       }
+
+      /* ────── RENDIMIENTO ──────
+         content-visibility: el navegador NO dibuja estas secciones mientras
+         están lejos del viewport; las renderiza justo cuando te acercas.
+         Baja mucho el costo de cada cuadro al hacer scroll. El tamaño
+         intrínseco es solo una estimación inicial (con "auto", el navegador
+         recuerda el tamaño real tras el primer render). El catálogo se omite
+         a propósito porque tiene barra lateral sticky. */
+      #sucursales {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 900px;
+      }
+      #promociones {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 1600px;
+      }
+      #instagram {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 720px;
+      }
+      #contacto {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 1200px;
+      }
+      .brands-wrap {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 231px;
+      }
+      /* El carrusel de marcas se pausa cuando no está en pantalla, para no
+         gastar la GPU animándolo todo el tiempo. */
+      .brands-track.paused {
+        animation-play-state: paused;
+      }
     </style>
   </head>
   <body>
@@ -6533,6 +6566,20 @@
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape" && lb.classList.contains("open")) close();
         });
+      })();
+
+      /* ── PAUSAR EL CARRUSEL DE MARCAS FUERA DE PANTALLA ── */
+      (function () {
+        const wrap = document.querySelector(".brands-wrap");
+        const track = document.querySelector(".brands-track");
+        if (!wrap || !track) return;
+        const io = new IntersectionObserver(
+          (entries) => {
+            track.classList.toggle("paused", !entries[0].isIntersecting);
+          },
+          { threshold: 0 }
+        );
+        io.observe(wrap);
       })();
     </script>
     </div>
