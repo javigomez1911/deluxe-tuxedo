@@ -2589,16 +2589,19 @@
           max-width: 1280px;
           margin: 0 auto;
         }
-        /* Desktop: grid instead of hscroll */
+        /* Desktop: flex centrado (la última fila incompleta queda centrada,
+           sin hueco a la derecha) */
         .hscroll {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
           gap: 24px;
           overflow: visible;
           padding: 0;
         }
         .pcard {
           width: auto;
+          flex: 0 0 232px;
         }
         .pci {
           height: 320px;
@@ -2639,19 +2642,28 @@
           margin: 0 0 24px;
         }
         .full-grid {
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 24px;
         }
-        /* Branch: grid on desktop */
+        .full-grid .fg-card {
+          flex: 0 0 232px;
+        }
+        /* Sucursales: flex centrado en escritorio (la fila de abajo queda
+           centrada, no parece que falte una sucursal) */
         .branch-slider {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
           gap: 18px;
           overflow: visible;
           padding: 0;
           margin: 24px 0 0;
         }
         .branch {
-          width: auto;
+          width: 300px;
+          flex: 0 0 300px;
         }
         #sucursales {
           padding: 66px 5%;
