@@ -5974,25 +5974,19 @@
       const nav = document.getElementById("nav");
       const rootEl = document.documentElement;
       const deskMQ = window.matchMedia("(min-width: 960px)");
-      let lastNavY = window.scrollY;
-      const NAV_DELTA = 6; // ignora micro-scrolls
-      const NAV_TOPZONE = 120; // cerca del inicio la barra siempre se ve
+      const heroEl = document.getElementById("inicio");
       function updateNav() {
         const y = window.scrollY;
         nav.classList.toggle("stuck", y > 8);
-        // Ocultar al bajar / mostrar al subir — solo en computadora
+        // Computadora: la barra SOLO se ve mientras el hero está a la vista;
+        // se oculta al entrar al contenido y reaparece al volver al hero.
         if (deskMQ.matches) {
-          if (y < NAV_TOPZONE) {
-            rootEl.classList.remove("nav-up");
-          } else if (y > lastNavY + NAV_DELTA) {
-            rootEl.classList.add("nav-up"); // bajando
-          } else if (y < lastNavY - NAV_DELTA) {
-            rootEl.classList.remove("nav-up"); // subiendo
-          }
+          const heroH = heroEl ? heroEl.offsetHeight : 400;
+          const inHero = y < heroH - nav.offsetHeight;
+          rootEl.classList.toggle("nav-up", !inHero);
         } else {
           rootEl.classList.remove("nav-up");
         }
-        lastNavY = y;
       }
       window.addEventListener("scroll", updateNav, { passive: true });
       deskMQ.addEventListener("change", (e) => {
