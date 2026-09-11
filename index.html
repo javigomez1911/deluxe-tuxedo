@@ -395,6 +395,64 @@
         object-fit: cover;
         object-position: center 20%;
         opacity: 1;
+        transform-origin: center 30%;
+        animation: kenburns 26s ease-in-out infinite alternate;
+      }
+      /* Se pausa cuando el hero sale de pantalla (no gasta GPU de gratis) */
+      .hero-img.kb-paused {
+        animation-play-state: paused;
+      }
+      @keyframes kenburns {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.09);
+        }
+      }
+      /* #5 — Entrada del hero al cargar (sube + aparece, escalonado).
+         Solo con JS (.anim-ready); sin JS el contenido se ve normal. */
+      @keyframes heroRise {
+        from {
+          opacity: 0;
+          transform: translateY(26px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .anim-ready .hero-ey,
+      .anim-ready .hero-h,
+      .anim-ready .hero-p,
+      .anim-ready .hero-stats {
+        animation: heroRise 0.85s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+      }
+      .anim-ready .hero-ey {
+        animation-delay: 0.12s;
+      }
+      .anim-ready .hero-h {
+        animation-delay: 0.24s;
+      }
+      .anim-ready .hero-p {
+        animation-delay: 0.4s;
+      }
+      .anim-ready .hero-stats {
+        animation-delay: 0.52s;
+      }
+      /* #10 — Títulos de sección: cada palabra sube al entrar en pantalla.
+         Default (sin la clase) = visible; nunca queda en blanco. */
+      .sh .w {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(0.55em);
+        transition: opacity 0.5s ease,
+          transform 0.6s cubic-bezier(0.2, 0.75, 0.2, 1);
+        transition-delay: calc(var(--wi, 0) * 65ms);
+      }
+      .sh.words-in .w {
+        opacity: 1;
+        transform: none;
       }
       .hero-content {
         position: relative;
@@ -2906,9 +2964,36 @@
       .brands-track.paused {
         animation-play-state: paused;
       }
+      /* #8 — En celular quitamos la transición de las fotos del catálogo para
+         que el parallax al deslizar sea perfectamente fluido. */
+      @media (max-width: 959px) {
+        .hscroll .pci img {
+          transition: none;
+        }
+      }
+      /* Respeto total a "reducir movimiento": se apagan las animaciones nuevas */
+      @media (prefers-reduced-motion: reduce) {
+        .hero-img {
+          animation: none;
+        }
+        .anim-ready .hero-ey,
+        .anim-ready .hero-h,
+        .anim-ready .hero-p,
+        .anim-ready .hero-stats {
+          animation: none;
+        }
+        .sh .w {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
     </style>
   </head>
   <body>
+    <script>
+      document.documentElement.classList.add("anim-ready");
+    </script>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
       <symbol id="i-wa" viewBox="0 0 24 24">
         <path
@@ -6599,6 +6684,124 @@
           ? "Abierto ahora"
           : "Cerrado ahora";
         badge.hidden = false;
+      })();
+
+      /* ── #10 TÍTULOS DE SECCIÓN: revelar palabra por palabra al entrar ── */
+      (function () {
+        const heads = document.querySelectorAll(".sh");
+        if (!heads.length) return;
+        if (reduceMotion) return;
+        heads.forEach((h) => {
+          // Solo texto plano (evita romper encabezados con hijos)
+          if (h.children.length) return;
+          const words = h.textContent.trim().split(/\s+/);
+          h.textContent = "";
+          words.forEach((w, i) => {
+            const span = document.createElement("span");
+            span.className = "w";
+            span.style.setProperty("--wi", i);
+            span.textContent = w;
+            h.appendChild(span);
+            if (i < words.length - 1) h.appendChild(document.createTextNode(" "));
+          });
+        });
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("words-in");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.4 }
+        );
+        heads.forEach((h) => io.observe(h));
+      })();
+
+      /* ── #4 KEN BURNS: pausar el zoom de la portada fuera de pantalla ── */
+      (function () {
+        const img = document.querySelector(".hero-img");
+        const hero = document.getElementById("inicio");
+        if (!img || !hero) return;
+        const io = new IntersectionObserver(
+          (entries) => {
+            img.classList.toggle("kb-paused", !entries[0].isIntersecting);
+          },
+          { threshold: 0 }
+        );
+        io.observe(hero);
+      })();
+
+      /* ── #1 BOTONES MAGNÉTICOS (solo computadora con mouse) ── */
+      (function () {
+        if (reduceMotion) return;
+        if (!window.matchMedia("(hover: hover) and (min-width: 960px)").matches)
+          return;
+        document.querySelectorAll(".promo-wa, #qGo").forEach((btn) => {
+          let raf = 0;
+          btn.style.transition = "transform 0.25s cubic-bezier(0.2,0.75,0.2,1)";
+          btn.style.willChange = "transform";
+          btn.addEventListener("mousemove", (e) => {
+            const r = btn.getBoundingClientRect();
+            const mx = e.clientX - (r.left + r.width / 2);
+            const my = e.clientY - (r.top + r.height / 2);
+            if (raf) return;
+            raf = requestAnimationFrame(() => {
+              btn.style.transform =
+                "translate(" +
+                (mx * 0.22).toFixed(1) +
+                "px," +
+                (my * 0.32).toFixed(1) +
+                "px)";
+              raf = 0;
+            });
+          });
+          btn.addEventListener("mouseleave", () => {
+            btn.style.transform = "";
+          });
+        });
+      })();
+
+      /* ── #8 PARALLAX HORIZONTAL DEL CATÁLOGO (solo celular) ── */
+      (function () {
+        if (reduceMotion) return;
+        const mq = window.matchMedia("(max-width: 959px)");
+        function apply(strip) {
+          const rect = strip.getBoundingClientRect();
+          const center = rect.left + rect.width / 2;
+          strip.querySelectorAll(".pci img").forEach((img) => {
+            const c = img.parentElement.getBoundingClientRect();
+            const off = (c.left + c.width / 2 - center) / rect.width;
+            img.style.transform =
+              "translateX(" + (off * 16).toFixed(1) + "px) scale(1.07)";
+          });
+        }
+        function clear(strip) {
+          strip.querySelectorAll(".pci img").forEach((img) => {
+            img.style.transform = "";
+          });
+        }
+        document.querySelectorAll(".hscroll").forEach((strip) => {
+          let raf = 0;
+          strip.addEventListener(
+            "scroll",
+            () => {
+              if (!mq.matches) return;
+              if (raf) return;
+              raf = requestAnimationFrame(() => {
+                apply(strip);
+                raf = 0;
+              });
+            },
+            { passive: true }
+          );
+        });
+        // Al pasar a escritorio, limpiar cualquier transform residual
+        mq.addEventListener("change", (e) => {
+          if (!e.matches)
+            document.querySelectorAll(".hscroll").forEach(clear);
+        });
       })();
     </script>
     </div>
