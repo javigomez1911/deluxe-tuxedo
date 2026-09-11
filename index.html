@@ -2480,25 +2480,35 @@
           transform-origin: center 10%;
         }
         /* CATALOG: desktop sidebar layout */
+        /* Escritorio: categorías como pestañas ARRIBA (sin barra lateral) */
         .cat-tabs {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 2px 6px;
+          overflow: visible;
+          padding: 4px 24px;
+        }
+        .cat-tabs .cat-tab {
+          min-height: auto;
+          padding: 15px 18px;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+        }
+        .cat-tabs .cat-tab:hover {
+          color: var(--red);
+        }
+        .cat-sidebar-d {
           display: none;
         }
         .cat-desktop {
-          display: grid;
-          grid-template-columns: 200px 1fr;
-          min-height: 60vh;
-        }
-        .cat-sidebar-d {
           display: block;
-          position: sticky;
-          top: var(--nav-h);
-          align-self: start; /* mide solo su contenido; nunca toda la altura */
-          padding: 18px 26px 18px 4px;
-          /* Sin max-height ni overflow: la barra NUNCA hace scroll interno */
         }
         .cat-main-d {
           padding: 40px 44px 80px;
-          border-left: 1px solid var(--border);
+          max-width: 1280px;
+          margin: 0 auto;
         }
         /* Desktop: grid instead of hscroll */
         .hscroll {
