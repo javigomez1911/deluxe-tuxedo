@@ -1857,39 +1857,137 @@
       .c-info-box .c-lbl {
         color: var(--muted);
       }
-      .hours-tbl {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
+      /* Encabezado del horario + badge "Abierto ahora / Cerrado" en vivo */
+      .hours-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 12px;
       }
-      .hours-tbl tr {
-        border-bottom: 1px solid var(--border);
+      .open-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 100px;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
       }
-      .hours-tbl td {
-        padding: 10px 0;
-        font-size: 13px;
+      .ob-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .open-badge.is-open {
+        background: rgba(34, 139, 58, 0.1);
+        color: #1c7a34;
+      }
+      .open-badge.is-open .ob-dot {
+        background: #22a53a;
+        box-shadow: 0 0 0 3px rgba(34, 165, 58, 0.18);
+      }
+      .open-badge.is-closed {
+        background: rgba(181, 19, 42, 0.09);
+        color: var(--red);
+      }
+      .open-badge.is-closed .ob-dot {
+        background: var(--red);
+      }
+      /* Filas de horario (con día de hoy resaltado) */
+      .hours-list {
+        list-style: none;
+      }
+      .hours-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 9px 12px;
+        margin: 0 -12px;
+        border-radius: 8px;
+      }
+      .hours-row + .hours-row {
+        border-top: 1px solid var(--border);
+      }
+      .hr-day {
+        font-size: 13.5px;
         font-weight: 500;
         color: var(--muted);
-        vertical-align: top;
       }
-      .hours-tbl td:last-child {
-        text-align: right;
+      .hr-time {
+        font-size: 13.5px;
         font-weight: 700;
         color: var(--text);
+        font-variant-numeric: tabular-nums;
       }
       .h-closed {
-        color: var(--red) !important;
+        color: var(--red);
       }
+      /* Día actual: fondo tenue rojo + "Hoy" */
+      .hours-row.is-today {
+        background: rgba(181, 19, 42, 0.06);
+        border-top-color: transparent;
+      }
+      .hours-row.is-today + .hours-row {
+        border-top-color: transparent;
+      }
+      .hours-row.is-today .hr-day {
+        color: var(--black);
+        font-weight: 700;
+      }
+      .hours-row.is-today .hr-day::after {
+        content: "Hoy";
+        display: inline-block;
+        margin-left: 8px;
+        padding: 1px 7px;
+        border-radius: 100px;
+        background: var(--red);
+        color: #fff;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        vertical-align: middle;
+      }
+      /* Cobertura: pin + etiquetas de sucursales */
       .coverage {
         margin-top: 20px;
         padding-top: 18px;
         border-top: 1px solid var(--border);
       }
-      .coverage p {
+      .cov-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
         font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.5;
+      }
+      .cov-ic {
+        width: 17px;
+        height: 17px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        fill: var(--red);
+      }
+      .cov-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 12px;
+      }
+      .cov-tag {
+        font-size: 11.5px;
+        font-weight: 600;
         color: var(--muted);
-        line-height: 1.75;
-        font-weight: 500;
+        background: var(--cream);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 5px 12px;
       }
       /* ── Bloque de redes fusionado dentro de Contacto ── */
       .c-social {
@@ -5800,27 +5898,40 @@
         </div>
         <div class="c-col">
           <div class="c-info-box">
-            <div class="c-lbl">Horario de Atención</div>
-            <table class="hours-tbl">
-              <tr>
-                <td>Lunes a Viernes</td>
-                <td>10:00 am – 8:00 pm</td>
-              </tr>
-              <tr>
-                <td>Sábado</td>
-                <td>10:00 am – 7:00 pm</td>
-              </tr>
-              <tr>
-                <td>Domingo</td>
-                <td class="h-closed">Cerrado</td>
-              </tr>
-            </table>
+            <div class="hours-head">
+              <div class="c-lbl">Horario de Atención</div>
+              <span class="open-badge" id="openBadge" hidden>
+                <span class="ob-dot"></span><span class="ob-txt"></span>
+              </span>
+            </div>
+            <ul class="hours-list">
+              <li class="hours-row" data-days="1-5">
+                <span class="hr-day">Lunes a Viernes</span>
+                <span class="hr-time">10:00 am – 8:00 pm</span>
+              </li>
+              <li class="hours-row" data-days="6">
+                <span class="hr-day">Sábado</span>
+                <span class="hr-time">10:00 am – 7:00 pm</span>
+              </li>
+              <li class="hours-row" data-days="0">
+                <span class="hr-day">Domingo</span>
+                <span class="hr-time h-closed">Cerrado</span>
+              </li>
+            </ul>
             <div class="coverage">
-              <div class="c-lbl" style="margin-top: 16px">Cobertura</div>
-              <p>
-                5 sucursales en el Área Metropolitana de Monterrey.<br />Anáhuac ·
-                Mitras Centro · Puentes · Zona Sur · Gonzalitos
-              </p>
+              <div class="cov-head">
+                <svg class="cov-ic" viewBox="0 0 24 24" aria-hidden="true">
+                  <use href="#i-map" />
+                </svg>
+                <span>5 sucursales en el Área Metropolitana de Monterrey</span>
+              </div>
+              <div class="cov-tags">
+                <span class="cov-tag">Anáhuac</span>
+                <span class="cov-tag">Mitras Centro</span>
+                <span class="cov-tag">Puentes</span>
+                <span class="cov-tag">Zona Sur</span>
+                <span class="cov-tag">Gonzalitos</span>
+              </div>
             </div>
           </div>
         </div>
@@ -6448,6 +6559,46 @@
           { threshold: 0 }
         );
         io.observe(wrap);
+      })();
+
+      /* ── HORARIO: estado "Abierto ahora / Cerrado" en vivo + día de hoy ── */
+      (function () {
+        const badge = document.getElementById("openBadge");
+        if (!badge) return;
+        // Hora local de Monterrey (aunque el visitante esté en otra zona)
+        let mty;
+        try {
+          mty = new Date(
+            new Date().toLocaleString("en-US", { timeZone: "America/Monterrey" })
+          );
+          if (isNaN(mty)) mty = new Date();
+        } catch (e) {
+          mty = new Date();
+        }
+        const day = mty.getDay(); // 0=Dom … 6=Sáb
+        const mins = mty.getHours() * 60 + mty.getMinutes();
+        let open = false;
+        if (day >= 1 && day <= 5) open = mins >= 600 && mins < 1200; // L-V 10-20
+        else if (day === 6) open = mins >= 600 && mins < 1140; // Sáb 10-19
+
+        // Resaltar la fila del día actual
+        document.querySelectorAll(".hours-row").forEach((r) => {
+          const d = r.dataset.days || "";
+          let match;
+          if (d.indexOf("-") > -1) {
+            const p = d.split("-");
+            match = day >= +p[0] && day <= +p[1];
+          } else {
+            match = +d === day;
+          }
+          r.classList.toggle("is-today", match);
+        });
+
+        badge.classList.add(open ? "is-open" : "is-closed");
+        badge.querySelector(".ob-txt").textContent = open
+          ? "Abierto ahora"
+          : "Cerrado ahora";
+        badge.hidden = false;
       })();
     </script>
     </div>
