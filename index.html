@@ -615,7 +615,7 @@
       /* ── CATEGORY TABS — horizontal scroll ── */
       .cat-tabs {
         display: flex;
-        gap: 0;
+        gap: 8px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-x: contain;
@@ -626,6 +626,8 @@
         position: sticky;
         top: var(--nav-h);
         z-index: 10;
+        padding: 12px 16px;
+        align-items: center;
       }
       .cat-tabs::-webkit-scrollbar {
         display: none;
@@ -654,13 +656,84 @@
         color: var(--red);
         border-bottom-color: var(--red);
       }
-      /* Touch target ≥44px solo en la tira móvil (no afecta el sidebar desktop) */
+      /* Tira móvil: pestañas como píldoras claras (se ven tocables) */
       .cat-tabs .cat-tab {
         display: inline-flex;
         align-items: center;
-        min-height: 44px;
-        padding-top: 12px;
-        padding-bottom: 12px;
+        min-height: 42px;
+        padding: 9px 16px;
+        margin-bottom: 0;
+        border: 1.5px solid var(--border);
+        border-radius: 100px;
+        background: #fff;
+        color: var(--black);
+        font-weight: 700;
+        text-transform: none;
+        letter-spacing: 0.02em;
+      }
+      .cat-tabs .cat-tab.on {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff;
+      }
+
+      /* ── SIDEBAR DE CATEGORÍAS (escritorio): filas claramente clicables ── */
+      .cat-grp {
+        display: block;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding: 16px 6px 6px;
+      }
+      .cat-sidebar-d .cat-grp:first-of-type {
+        padding-top: 2px;
+      }
+      .cat-sidebar-d .cat-tab {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+        text-align: left;
+        padding: 10px 12px;
+        margin: 3px 0;
+        font-size: 12.5px;
+        font-weight: 600;
+        text-transform: none;
+        letter-spacing: 0;
+        color: var(--black);
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.18s, border-color 0.18s, color 0.18s;
+      }
+      .cat-sidebar-d .cat-tab::after {
+        content: "›";
+        font-size: 17px;
+        line-height: 1;
+        color: var(--muted);
+        transition: transform 0.18s, color 0.18s;
+      }
+      .cat-sidebar-d .cat-tab:hover {
+        border-color: var(--red);
+        color: var(--red);
+        background: rgba(181, 19, 42, 0.05);
+      }
+      .cat-sidebar-d .cat-tab:hover::after {
+        color: var(--red);
+        transform: translateX(3px);
+      }
+      .cat-sidebar-d .cat-tab.on {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff;
+        font-weight: 700;
+      }
+      .cat-sidebar-d .cat-tab.on::after {
+        color: #fff;
       }
 
       /* ── CATEGORY PANEL ── */
@@ -2419,7 +2492,7 @@
         }
         .cat-desktop {
           display: grid;
-          grid-template-columns: 200px 1fr;
+          grid-template-columns: 220px 1fr;
           min-height: 60vh;
         }
         .cat-sidebar-d {
@@ -2430,7 +2503,7 @@
           top: var(--nav-h);
           height: calc(100vh - var(--nav-h));
           overflow-y: auto;
-          padding: 24px 0;
+          padding: 20px 12px;
         }
         .cat-sidebar-d::-webkit-scrollbar {
           width: 3px;
@@ -2907,291 +2980,24 @@
 
       <!-- DESKTOP LAYOUT WRAPPER -->
       <div class="cat-desktop">
-        <aside class="cat-sidebar-d" aria-label="Categorías">
-          <span
-            style="
-              font-size: 9px;
-              font-weight: 700;
-              letter-spacing: 0.26em;
-              text-transform: uppercase;
-              color: var(--muted);
-              padding: 10px 18px 4px;
-              display: block;
-            "
-            >Etiqueta Novio</span
-          >
-          <button
-            class="cat-tab on"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-novio"
-          >
-            Frac / Jaquet / Cuello Mao
-          </button>
-          <span
-            style="
-              font-size: 9px;
-              font-weight: 700;
-              letter-spacing: 0.26em;
-              text-transform: uppercase;
-              color: var(--muted);
-              padding: 10px 18px 4px;
-              display: block;
-            "
-            >Premium Allure</span
-          >
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-allure"
-          >
-            Graphite / Denim / Ultra
-          </button>
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-3p"
-          >
-            3 Piezas Premium
-          </button>
-          <span
-            style="
-              font-size: 9px;
-              font-weight: 700;
-              letter-spacing: 0.26em;
-              text-transform: uppercase;
-              color: var(--muted);
-              padding: 10px 18px 4px;
-              display: block;
-            "
-            >Statement</span
-          >
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-statement"
-          >
-            Beige / Verde Olivo
-          </button>
-          <span
-            style="
-              font-size: 9px;
-              font-weight: 700;
-              letter-spacing: 0.26em;
-              text-transform: uppercase;
-              color: var(--muted);
-              padding: 10px 18px 4px;
-              display: block;
-            "
-            >Smokings</span
-          >
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-smokings"
-          >
-            Wayne / Moda / Ottimo / Zauca
-          </button>
-          <span
-            style="
-              font-size: 9px;
-              font-weight: 700;
-              letter-spacing: 0.26em;
-              text-transform: uppercase;
-              color: var(--muted);
-              padding: 10px 18px 4px;
-              display: block;
-            "
-            >Trajes Formales</span
-          >
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-formales"
-          >
-            Azul / Negro / Oxford / HPC
-          </button>
-          <span
-            style="
-              font-size: 9px;
-              font-weight: 700;
-              letter-spacing: 0.26em;
-              text-transform: uppercase;
-              color: var(--muted);
-              padding: 10px 18px 4px;
-              display: block;
-            "
-            >Niños y Juvenil</span
-          >
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-ninos"
-          >
-            Smoking / Traje / Lino
-          </button>
-          <span
-            style="
-              font-size: 9px;
-              font-weight: 700;
-              letter-spacing: 0.26em;
-              text-transform: uppercase;
-              color: var(--muted);
-              padding: 10px 18px 4px;
-              display: block;
-            "
-            >Accesorios</span
-          >
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-calzado"
-          >
-            Calzado Formal
-          </button>
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-accs"
-          >
-            Camisas, Corbatas...
-          </button>
-          <button
-            class="cat-tab"
-            style="
-              border: none;
-              text-align: left;
-              padding: 7px 18px;
-              width: 100%;
-              font-size: 11px;
-              font-weight: 400;
-              color: var(--text);
-              border-left: 2px solid transparent;
-              background: none;
-              cursor: pointer;
-              letter-spacing: 0.02em;
-              transition: all 0.14s;
-            "
-            data-panel="p-chalecos"
-          >
-            Chalecos y Pecheras
-          </button>
+        <aside class="cat-sidebar-d" role="tablist" aria-label="Categorías">
+          <span class="cat-grp">Etiqueta Novio</span>
+          <button class="cat-tab on" data-panel="p-novio" role="tab">Frac / Jaquet / Cuello Mao</button>
+          <span class="cat-grp">Premium Allure</span>
+          <button class="cat-tab" data-panel="p-allure" role="tab">Graphite / Denim / Ultra</button>
+          <button class="cat-tab" data-panel="p-3p" role="tab">3 Piezas Premium</button>
+          <span class="cat-grp">Statement</span>
+          <button class="cat-tab" data-panel="p-statement" role="tab">Beige / Verde Olivo</button>
+          <span class="cat-grp">Smokings</span>
+          <button class="cat-tab" data-panel="p-smokings" role="tab">Wayne / Moda / Ottimo / Zauca</button>
+          <span class="cat-grp">Trajes Formales</span>
+          <button class="cat-tab" data-panel="p-formales" role="tab">Azul / Negro / Oxford / HPC</button>
+          <span class="cat-grp">Niños y Juvenil</span>
+          <button class="cat-tab" data-panel="p-ninos" role="tab">Smoking / Traje / Lino</button>
+          <span class="cat-grp">Accesorios</span>
+          <button class="cat-tab" data-panel="p-calzado" role="tab">Calzado Formal</button>
+          <button class="cat-tab" data-panel="p-accs" role="tab">Camisas, Corbatas...</button>
+          <button class="cat-tab" data-panel="p-chalecos" role="tab">Chalecos y Pecheras</button>
         </aside>
         <div class="cat-main-d" id="catMain">
           <!-- PANELS INJECTED BELOW -->
@@ -6250,21 +6056,9 @@
         window.scrollTo({ top: savedY, behavior: "instant" });
         // Update all tab buttons
         document.querySelectorAll(".cat-tab").forEach((t) => {
-          t.classList.toggle("on", t.dataset.panel === panelId);
-          // Desktop sidebar style
-          if (t.style.borderLeft !== undefined) {
-            if (t.dataset.panel === panelId) {
-              t.style.color = "var(--red)";
-              t.style.borderLeft = "2px solid var(--red)";
-              t.style.fontWeight = "600";
-              t.style.background = "rgba(181,19,42,.05)";
-            } else {
-              t.style.color = "var(--text)";
-              t.style.borderLeft = "2px solid transparent";
-              t.style.fontWeight = "400";
-              t.style.background = "none";
-            }
-          }
+          const active = t.dataset.panel === panelId;
+          t.classList.toggle("on", active);
+          t.setAttribute("aria-selected", active ? "true" : "false");
         });
       }
       // Init first tab
