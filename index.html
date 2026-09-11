@@ -2431,12 +2431,13 @@
         .cat-sidebar-d {
           display: block;
           background: var(--cream);
-          border-right: 1px solid var(--border);
           position: sticky;
           top: var(--nav-h);
-          height: calc(100vh - var(--nav-h));
+          align-self: start; /* que mida solo su contenido, no toda la altura */
+          max-height: calc(100vh - var(--nav-h));
           overflow-y: auto;
           padding: 12px 0;
+          border-radius: 0 14px 14px 0;
         }
         .cat-sidebar-d::-webkit-scrollbar {
           width: 3px;
@@ -2446,6 +2447,7 @@
         }
         .cat-main-d {
           padding: 40px 44px 80px;
+          border-left: 1px solid var(--border);
         }
         /* Desktop: grid instead of hscroll */
         .hscroll {
