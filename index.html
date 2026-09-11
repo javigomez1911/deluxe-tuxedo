@@ -1528,7 +1528,7 @@
         background: var(--cream);
         border-top: 1px solid var(--border);
         border-bottom: 1px solid var(--border);
-        padding: 32px 0;
+        padding: 14px 0;
         overflow: hidden;
       }
       .brands-eyebrow {
@@ -1538,7 +1538,7 @@
         letter-spacing: 0.28em;
         text-transform: uppercase;
         color: var(--muted);
-        margin-bottom: 22px;
+        margin-bottom: 10px;
       }
       .brands-slider {
         overflow: hidden;
@@ -1561,14 +1561,14 @@
       .brands-track {
         display: flex;
         align-items: center;
-        gap: 64px;
+        gap: 46px;
         width: max-content;
         animation: brands-scroll 64s linear infinite;
       }
       /* Sin pausa al pasar el cursor */
       .brands-track img {
-        height: 120px;
-        width: 120px;
+        height: 82px;
+        width: 82px;
         object-fit: contain;
         object-position: center;
         opacity: 0.82;
@@ -2540,6 +2540,10 @@
         .ham {
           display: none;
         }
+        /* El menú móvil no existe en escritorio (evita cualquier residuo visual) */
+        .mob {
+          display: none;
+        }
         .logo-img {
           height: 60px;
         }
@@ -2733,20 +2737,20 @@
         }
         /* MARCAS: logos más grandes en desktop */
         .brands-wrap {
-          padding: 48px 0;
+          padding: 30px 0;
         }
         .brands-eyebrow {
           font-size: 10px;
-          margin-bottom: 28px;
+          margin-bottom: 18px;
         }
         .brands-track {
-          gap: 104px;
+          gap: 72px;
           /* Velocidad ajustada: logos más grandes = pista más larga → más segundos para misma velocidad visual */
-          animation-duration: 88s;
+          animation-duration: 72s;
         }
         .brands-track img {
-          height: 175px;
-          width: 175px;
+          height: 120px;
+          width: 120px;
         }
       }
 
@@ -2775,7 +2779,7 @@
       }
       .brands-wrap {
         content-visibility: auto;
-        contain-intrinsic-size: auto 231px;
+        contain-intrinsic-size: auto 160px;
       }
       /* El carrusel de marcas se pausa cuando no está en pantalla, para no
          gastar la GPU animándolo todo el tiempo. */
