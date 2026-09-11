@@ -1763,12 +1763,12 @@
 
       /* ────── CONTACTO ────── */
       #contacto {
-        padding: 48px 20px;
-        background: #141414;
-        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 44px 20px;
+        background: var(--cream);
+        border-top: 1px solid var(--border);
       }
       #contacto .sh {
-        color: #fff;
+        color: var(--black);
       }
       .c-grid {
         display: flex;
@@ -1793,12 +1793,12 @@
       .c-val {
         font-family: "Manrope", sans-serif;
         font-size: 1.05rem;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.9);
+        font-weight: 600;
+        color: var(--text);
         line-height: 1.7;
       }
       .c-val a {
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--text);
         transition: color var(--t);
       }
       .c-val a:active {
@@ -1807,7 +1807,7 @@
       .c-intro {
         font-size: 14px;
         line-height: 1.75;
-        color: rgba(255, 255, 255, 0.6);
+        color: var(--muted);
         max-width: 46ch;
         margin: 4px 0 28px;
       }
@@ -1817,10 +1817,10 @@
         align-items: flex-start;
         gap: 14px;
         padding: 16px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid var(--border);
       }
       .c-item:first-child {
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid var(--border);
       }
       .c-ic {
         flex-shrink: 0;
@@ -1847,14 +1847,15 @@
         }
       }
       .c-info-box {
-        background: rgba(255, 255, 255, 0.035);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: var(--white);
+        border: 1px solid var(--border);
         border-top: 2px solid var(--red);
         padding: 22px;
         margin-top: 24px;
+        box-shadow: 0 8px 24px rgba(12, 12, 12, 0.05);
       }
       .c-info-box .c-lbl {
-        color: rgba(255, 255, 255, 0.4);
+        color: var(--muted);
       }
       .hours-tbl {
         width: 100%;
@@ -1862,19 +1863,19 @@
         margin-top: 10px;
       }
       .hours-tbl tr {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid var(--border);
       }
       .hours-tbl td {
         padding: 10px 0;
         font-size: 13px;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.55);
+        font-weight: 500;
+        color: var(--muted);
         vertical-align: top;
       }
       .hours-tbl td:last-child {
         text-align: right;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.92);
+        font-weight: 700;
+        color: var(--text);
       }
       .h-closed {
         color: var(--red) !important;
@@ -1882,23 +1883,44 @@
       .coverage {
         margin-top: 20px;
         padding-top: 18px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid var(--border);
       }
       .coverage p {
         font-size: 13px;
-        color: rgba(255, 255, 255, 0.55);
+        color: var(--muted);
         line-height: 1.75;
-        font-weight: 400;
+        font-weight: 500;
+      }
+      /* ── Bloque de redes fusionado dentro de Contacto ── */
+      .c-social {
+        margin-top: 36px;
+        padding-top: 30px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+      .c-social-head {
+        max-width: 460px;
+        margin: 0 auto 22px;
+      }
+      .c-social-head .c-lbl {
+        color: var(--red);
+      }
+      .c-social-sub {
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      .c-social .soc-tt {
+        margin: 0 auto;
       }
       /* ────── FOOTER ────── */
       footer {
-        background: var(--black);
-        border-top: 1px solid rgba(255, 255, 255, 0.07);
-        /* El extra abajo evita que el botón flotante de WhatsApp tape el texto */
-        padding: 36px 20px calc(84px + var(--safe-bot));
+        background: var(--white);
+        border-top: 1px solid var(--border);
+        padding: 20px 20px calc(20px + var(--safe-bot));
         display: flex;
-        flex-direction: column;
-        gap: 28px;
+        justify-content: center;
       }
       .foot-top {
         display: flex;
@@ -1951,16 +1973,13 @@
       .foot-bottom {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 16px;
-        padding-top: 24px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        justify-content: center;
+        text-align: center;
       }
       .foot-copy {
-        font-size: 10px;
-        color: rgba(255, 255, 255, 0.28);
-        letter-spacing: 0.04em;
+        font-size: 10.5px;
+        color: var(--muted);
+        letter-spacing: 0.05em;
       }
       @media (hover: hover) {
         .foot-links a:hover {
@@ -2698,18 +2717,7 @@
           padding: 60px 5% 36px;
         }
         footer {
-          padding: 48px 5% 72px;
-          gap: 30px;
-        }
-        .foot-top {
-          flex-direction: row;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 40px;
-        }
-        .foot-links {
-          justify-content: flex-end;
-          max-width: 55%;
+          padding: 24px 5%;
         }
         /* Nosotros: two-col desktop (columnas alineadas arriba para no dejar
            un hueco blanco encima del título) */
@@ -5754,50 +5762,6 @@
       </div>
     </div>
 
-    <!-- ══════ REDES SOCIALES (id="instagram" se conserva por el anchor del navbar) ══════ -->
-    <section id="instagram">
-      <div class="soc-head rv">
-        <div class="ey">
-          <span class="ey-l" style="background: var(--red)"></span
-          ><span class="ey-t">Síguenos</span>
-        </div>
-        <h2 class="sh" style="color: #fff">Únete a nuestra comunidad</h2>
-        <p class="sp" style="color: rgba(255, 255, 255, 0.55)">
-          Inspírate con nuestros modelos, bodas, graduaciones y los últimos
-          estilos en moda formal masculina.
-        </p>
-      </div>
-
-      <ul class="soc-tt rv">
-        <li class="soc-tt-item">
-          <a
-            href="https://www.instagram.com/deluxe_tuxedo"
-            aria-label="Instagram"
-            target="_blank"
-            rel="noopener"
-            class="soc-tt-link soc-tt-link--ig"
-          >
-            <span class="soc-tt-fill"></span>
-            <svg class="soc-tt-icon"><use href="#i-ig" /></svg>
-          </a>
-          <span class="soc-tt-tip soc-tt-tip--ig">@deluxe_tuxedo</span>
-        </li>
-        <li class="soc-tt-item">
-          <a
-            href="https://www.facebook.com/DeluxeTuxedoOficial"
-            aria-label="Facebook"
-            target="_blank"
-            rel="noopener"
-            class="soc-tt-link soc-tt-link--fb"
-          >
-            <span class="soc-tt-fill"></span>
-            <svg class="soc-tt-icon"><use href="#i-fb" /></svg>
-          </a>
-          <span class="soc-tt-tip soc-tt-tip--fb">Deluxe Tuxedo Oficial</span>
-        </li>
-      </ul>
-    </section>
-
     <!-- ══════ CONTACTO ══════ -->
     <section id="contacto">
       <div class="ey">
@@ -5861,32 +5825,35 @@
           </div>
         </div>
       </div>
+      <div class="c-social">
+        <div class="c-social-head">
+          <div class="c-lbl">Síguenos</div>
+          <p class="c-social-sub">
+            Inspírate con nuestros modelos, bodas, graduaciones y los últimos
+            estilos en moda formal masculina.
+          </p>
+        </div>
+        <ul class="soc-tt rv">
+          <li class="soc-tt-item">
+            <a href="https://www.instagram.com/deluxe_tuxedo" aria-label="Instagram" target="_blank" rel="noopener" class="soc-tt-link soc-tt-link--ig">
+              <span class="soc-tt-fill"></span>
+              <svg class="soc-tt-icon"><use href="#i-ig" /></svg>
+            </a>
+            <span class="soc-tt-tip soc-tt-tip--ig">@deluxe_tuxedo</span>
+          </li>
+          <li class="soc-tt-item">
+            <a href="https://www.facebook.com/DeluxeTuxedoOficial" aria-label="Facebook" target="_blank" rel="noopener" class="soc-tt-link soc-tt-link--fb">
+              <span class="soc-tt-fill"></span>
+              <svg class="soc-tt-icon"><use href="#i-fb" /></svg>
+            </a>
+            <span class="soc-tt-tip soc-tt-tip--fb">Deluxe Tuxedo Oficial</span>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <div class="foot-top">
-        <div class="foot-brand">
-          <a href="#inicio" class="foot-logo" aria-label="Deluxe Tuxedo">
-            <img
-              src="Logo y Portada/Logo.png"
-              alt="Deluxe Tuxedo"
-              class="logo-img"
-              loading="lazy"
-              decoding="async"
-            />
-          </a>
-          <p class="foot-tagline">
-            Renta y venta de trajes formales en Monterrey desde el año 2000.
-          </p>
-        </div>
-        <nav class="foot-links" aria-label="Pie de página">
-          <a href="#inicio">Inicio</a><a href="#nosotros">Nosotros</a
-          ><a href="#catalogo">Catálogo</a><a href="#sucursales">Sucursales</a
-          ><a href="#promociones">Promociones</a
-          ><a href="#contacto">Contacto</a>
-        </nav>
-      </div>
       <div class="foot-bottom">
         <div class="foot-copy">
           © 2025 Deluxe Tuxedo · Todos los derechos reservados
