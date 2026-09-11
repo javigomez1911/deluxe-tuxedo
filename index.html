@@ -727,6 +727,116 @@
         padding: 0;
         opacity: 1;
         transition: transform 0.4s;
+        cursor: zoom-in;
+      }
+      /* Pista visual: lupa que aparece al pasar/tocar la foto */
+      .pci-zoom {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        z-index: 2;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(12, 12, 12, 0.55);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 0.25s, transform 0.25s;
+        pointer-events: none;
+      }
+      .pci:hover .pci-zoom {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (hover: none) {
+        .pci-zoom {
+          opacity: 0.9;
+          transform: none;
+        }
+      }
+      /* ── LIGHTBOX ── */
+      .lb-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        background: rgba(8, 8, 8, 0.92);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 24px 16px 32px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.28s ease;
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+      }
+      .lb-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .lb-figure {
+        max-width: 560px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: scale(0.94);
+        transition: transform 0.32s cubic-bezier(0.34, 1.4, 0.64, 1);
+      }
+      .lb-overlay.open .lb-figure {
+        transform: scale(1);
+      }
+      .lb-img {
+        max-width: 100%;
+        max-height: 76vh;
+        width: auto;
+        height: auto;
+        border-radius: 12px;
+        object-fit: contain;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+      }
+      .lb-cap {
+        margin-top: 16px;
+        text-align: center;
+        color: #fff;
+        font-family: "Manrope", sans-serif;
+      }
+      .lb-cap-name {
+        font-size: 1.05rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      .lb-cap-brand {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 3px;
+      }
+      .lb-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        font-size: 17px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+      .lb-close:hover {
+        background: rgba(255, 255, 255, 0.3);
       }
       /* Badge */
       .pc-badge {
@@ -5864,6 +5974,24 @@
       </div>
     </div>
 
+    <!-- ══════ LIGHTBOX (galería de modelos) ══════ -->
+    <div
+      class="lb-overlay"
+      id="lbModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Vista ampliada del modelo"
+    >
+      <button class="lb-close" id="lbClose" aria-label="Cerrar">✕</button>
+      <figure class="lb-figure">
+        <img class="lb-img" id="lbImg" src="" alt="" />
+        <figcaption class="lb-cap">
+          <div class="lb-cap-name" id="lbName"></div>
+          <div class="lb-cap-brand" id="lbBrand"></div>
+        </figcaption>
+      </figure>
+    </div>
+
     <script>
       /* ── PREFERENCIA DE MOVIMIENTO ── */
       const reduceMotion = window.matchMedia(
@@ -6306,6 +6434,65 @@
         });
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") closePopup();
+        });
+      })();
+
+      /* ── LIGHTBOX: toca la foto de un modelo para verla en grande ── */
+      (function () {
+        const lb = document.getElementById("lbModal");
+        const lbImg = document.getElementById("lbImg");
+        const lbName = document.getElementById("lbName");
+        const lbBrand = document.getElementById("lbBrand");
+        const lbClose = document.getElementById("lbClose");
+        if (!lb || !lbImg) return;
+
+        const ZOOM_SVG =
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" ' +
+          'stroke="currentColor" stroke-width="2.2" stroke-linecap="round" ' +
+          'stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" ' +
+          'r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line>' +
+          '<line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" ' +
+          'x2="14" y2="11"></line></svg>';
+
+        let lastFocused = null;
+
+        function open(img) {
+          const card = img.closest(".pcard");
+          const name = card ? card.querySelector(".pcb-name") : null;
+          const brand = card ? card.querySelector(".pcb-brand") : null;
+          lbImg.src = img.currentSrc || img.src;
+          lbImg.alt = img.alt || "";
+          lbName.textContent = name ? name.textContent.trim() : "";
+          lbBrand.textContent = brand ? brand.textContent.trim() : "";
+          lastFocused = document.activeElement;
+          lb.classList.add("open");
+          document.body.style.overflow = "hidden";
+          lbClose.focus();
+        }
+        function close() {
+          lb.classList.remove("open");
+          document.body.style.overflow = "";
+          if (lastFocused && lastFocused.focus) lastFocused.focus();
+        }
+
+        // Añade la lupa y el click a cada foto del catálogo
+        document.querySelectorAll(".pci").forEach((pci) => {
+          const img = pci.querySelector("img");
+          if (!img) return;
+          const hint = document.createElement("div");
+          hint.className = "pci-zoom";
+          hint.innerHTML = ZOOM_SVG;
+          pci.appendChild(hint);
+          img.addEventListener("click", () => open(img));
+        });
+
+        lbClose.addEventListener("click", close);
+        lb.addEventListener("click", (e) => {
+          if (e.target === lb || e.target.classList.contains("lb-figure"))
+            close();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && lb.classList.contains("open")) close();
         });
       })();
     </script>
