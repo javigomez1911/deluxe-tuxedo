@@ -291,7 +291,13 @@
         width: 100%;
         text-align: center;
         padding: 11px 40px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s ease;
+      }
+      /* Las líneas divisorias solo se ven con el menú abierto (si no, quedan
+         pintadas sobre la página al cerrar). */
+      .mob.open .mob-lnk {
+        border-bottom-color: rgba(255, 255, 255, 0.08);
       }
       .mob-lnk-t {
         display: inline-block;
