@@ -2713,57 +2713,54 @@
           gap: 8px;
           list-style: none;
         }
-        /* Flow-link: al hover se rellena de rojo, el texto pasa a blanco,
-           el borde se redondea y entra una flecha (efecto tipo "flow button"
-           recreado en vanilla). */
+        /* Opción #1: links de texto con subrayado rojo que se dibuja al pasar
+           el mouse (look editorial/sastrería, sin caja de vidrio). */
         .nav-ul a {
           display: inline-flex;
           align-items: center;
           gap: 0;
-          padding: 9px 18px;
-          font-size: 10px;
+          padding: 8px 12px;
+          font-size: 11px;
           font-weight: 700;
-          letter-spacing: 0.13em;
+          letter-spacing: 0.14em;
           text-transform: uppercase;
           color: #fff;
-          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+          text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
           position: relative;
-          z-index: 0;
-          overflow: hidden;
-          border-radius: 100px;
-          /* Vidrio líquido tipo iPhone */
-          background: rgba(255, 255, 255, 0.12);
-          border: 1px solid rgba(255, 255, 255, 0.28);
-          backdrop-filter: blur(8px) saturate(1.3);
-          -webkit-backdrop-filter: blur(8px) saturate(1.3);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25),
-            0 4px 14px rgba(0, 0, 0, 0.18);
-          transition: color 0.6s cubic-bezier(0.23, 1, 0.32, 1),
-            border-radius 0.6s cubic-bezier(0.23, 1, 0.32, 1),
-            background 0.3s ease, border-color 0.3s ease;
+          background: none;
+          border: none;
+          border-radius: 0;
+          overflow: visible;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          box-shadow: none;
+          transition: color 0.3s ease;
         }
-        /* El botón se queda de VIDRIO: sin relleno rojo, sin volverse
-           cuadrado y sin flecha. (Se desactivan el círculo y la flecha.) */
-        .nav-ul a::before,
-        .nav-ul a::after {
+        .nav-ul a::before {
           display: none;
         }
-        /* Hover: sigue de vidrio, solo un brillo un poco más marcado */
-        .nav-ul a:hover {
-          color: #fff;
-          background: rgba(255, 255, 255, 0.22);
-          border-color: rgba(255, 255, 255, 0.5);
+        /* Subrayado rojo que se traza de izquierda a derecha */
+        .nav-ul a::after {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 12px;
+          right: 12px;
+          bottom: 2px;
+          height: 2px;
+          background: var(--red);
+          transform: scaleX(0);
+          transform-origin: left center;
+          transition: transform 0.4s cubic-bezier(0.65, 0.01, 0.05, 0.99);
         }
-        /* Sección actual: botón lleno de rojo (se ve que estás ahí) */
+        .nav-ul a:hover::after,
+        .nav-ul a.active::after {
+          transform: scaleX(1);
+        }
+        /* Sección actual: subrayado rojo fijo */
+        .nav-ul a:hover,
         .nav-ul a.active {
           color: #fff;
-          background: rgba(181, 19, 42, 0.92);
-          border-color: rgba(181, 19, 42, 0.6);
-        }
-        .nav-ul a.active:hover {
-          color: #fff;
-          background: rgba(181, 19, 42, 0.92);
-          border-color: rgba(181, 19, 42, 0.6);
         }
         @media (prefers-reduced-motion: reduce) {
           .nav-ul a,
