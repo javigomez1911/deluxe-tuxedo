@@ -902,6 +902,8 @@
       /* ── HORIZONTAL SCROLL STRIP ── */
       .hscroll {
         display: flex;
+        align-items: flex-start; /* cada tarjeta a su propio alto: al abrir
+                                    Características solo crece esa, no las vecinas */
         gap: 18px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -1187,93 +1189,6 @@
         text-transform: uppercase;
         color: var(--red);
         margin-bottom: 5px;
-      }
-      /* ── PANEL FLOTANTE DE CARACTERÍSTICAS ──
-         Se abre sobre todo (fixed), así NO empuja la tarjeta hacia abajo
-         ni estira a las tarjetas vecinas. */
-      .spec-pop {
-        position: fixed;
-        inset: 0;
-        z-index: 9990;
-        background: rgba(12, 12, 12, 0.55);
-        -webkit-backdrop-filter: blur(2px);
-        backdrop-filter: blur(2px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.28s ease;
-      }
-      .spec-pop.open {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .spec-pop-box {
-        background: var(--white);
-        width: 100%;
-        max-width: 360px;
-        max-height: 82vh;
-        overflow-y: auto;
-        border-radius: 14px;
-        border-top: 3px solid var(--red);
-        padding: 22px 22px 24px;
-        position: relative;
-        transform: translateY(14px) scale(0.98);
-        transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
-      }
-      .spec-pop.open .spec-pop-box {
-        transform: none;
-      }
-      .spec-pop-close {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        border: none;
-        background: var(--cream);
-        color: var(--muted);
-        font-size: 14px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s, color 0.2s;
-      }
-      .spec-pop-close:hover {
-        background: var(--red);
-        color: #fff;
-      }
-      .spec-pop-ey {
-        font-size: 8.5px;
-        font-weight: 800;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--red);
-        margin-bottom: 4px;
-      }
-      .spec-pop-name {
-        font-family: "Manrope", sans-serif;
-        font-size: 1.15rem;
-        font-weight: 800;
-        color: var(--black);
-        line-height: 1.2;
-        padding-right: 34px;
-        margin-bottom: 16px;
-      }
-      /* El contenido reutiliza los estilos de .spec-row / .incl ya existentes */
-      .spec-pop-content .incl {
-        margin-top: 16px;
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .spec-pop,
-        .spec-pop-box {
-          transition: none;
-        }
       }
       /* WhatsApp CTA on card — always pinned to card bottom */
       .pc-wa {
@@ -2571,6 +2486,37 @@
       .popup-overlay.open .popup-box {
         transform: translateY(0) scale(1);
       }
+      /* Imagen del cupón: banner arriba en celular */
+      .popup-img {
+        display: block;
+        width: 100%;
+        height: 172px;
+        object-fit: cover;
+        object-position: center 22%;
+      }
+      .popup-content {
+        display: block;
+      }
+      /* En pantallas amplias: tarjeta partida (foto a la izquierda) */
+      @media (min-width: 560px) {
+        .popup-box {
+          display: flex;
+          max-width: 660px;
+          align-items: stretch;
+        }
+        .popup-img {
+          width: 250px;
+          height: auto;
+          flex-shrink: 0;
+          object-position: center top;
+        }
+        .popup-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+        }
+      }
       /* Botón cerrar — muy visible */
       .popup-close {
         position: absolute;
@@ -2943,6 +2889,8 @@
           gap: 24px;
           overflow: visible;
           padding: 0;
+          align-items: start; /* al abrir Características solo crece esa tarjeta,
+                                 no toda la fila */
         }
         .pcard {
           width: auto;
@@ -3249,28 +3197,37 @@
     <div class="popup-overlay" id="promoPopup" role="dialog" aria-modal="true" aria-label="Promoción graduados">
       <div class="popup-box">
         <button class="popup-close" id="popupClose" aria-label="Cerrar">✕</button>
-        <div class="popup-top">
-          <div class="popup-eyebrow">Oferta especial</div>
-          <div class="popup-pct">
-            <span class="flip-char">2</span
-            ><span class="flip-char">0</span
-            ><span class="flip-char"><sup>%</sup></span>
+        <img
+          class="popup-img"
+          src="Catalogo Deluxe Tuxedo/SM ULTRA BLACK ETIQUETA PREMIUM (ALLURE).jpg"
+          alt="Traje formal para graduación — Deluxe Tuxedo"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="popup-content">
+          <div class="popup-top">
+            <div class="popup-eyebrow">Oferta especial</div>
+            <div class="popup-pct">
+              <span class="flip-char">2</span
+              ><span class="flip-char">0</span
+              ><span class="flip-char"><sup>%</sup></span>
+            </div>
+            <div class="popup-descuento">de descuento</div>
+            <div class="popup-for">para graduados</div>
           </div>
-          <div class="popup-descuento">de descuento</div>
-          <div class="popup-for">para graduados</div>
-        </div>
-        <div class="popup-body">
-          <p class="popup-desc">
-            Renta tu traje para graduación y obtén un 20% de descuento.
-            Presenta este cupón en cualquiera de nuestras 5 sucursales en Monterrey.
-          </p>
-          <a
-            href="https://wa.me/528110778004?text=Hola%2C%20quiero%20canjear%20mi%20cup%C3%B3n%20GRADUADOS2025%20para%2020%25%20de%20descuento%20en%20mi%20renta."
-            target="_blank"
-            rel="noopener"
-            class="popup-wa-btn"
-          ><svg><use href="#i-wa" /></svg>Canjear por WhatsApp</a>
-          <p class="popup-fine">*Aplican restricciones. Válido presentando este cupón.</p>
+          <div class="popup-body">
+            <p class="popup-desc">
+              Renta tu traje para graduación y obtén un 20% de descuento.
+              Presenta este cupón en cualquiera de nuestras 5 sucursales en Monterrey.
+            </p>
+            <a
+              href="https://wa.me/528110778004?text=Hola%2C%20quiero%20canjear%20mi%20cup%C3%B3n%20GRADUADOS2025%20para%2020%25%20de%20descuento%20en%20mi%20renta."
+              target="_blank"
+              rel="noopener"
+              class="popup-wa-btn"
+            ><svg><use href="#i-wa" /></svg>Canjear por WhatsApp</a>
+            <p class="popup-fine">*Aplican restricciones. Válido presentando este cupón.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -6310,24 +6267,6 @@
       </figure>
     </div>
 
-    <!-- ══════ PANEL FLOTANTE DE CARACTERÍSTICAS ══════ -->
-    <div
-      class="spec-pop"
-      id="specPop"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Características del modelo"
-    >
-      <div class="spec-pop-box">
-        <button class="spec-pop-close" id="specPopClose" aria-label="Cerrar">
-          ✕
-        </button>
-        <div class="spec-pop-ey">Características</div>
-        <div class="spec-pop-name" id="specPopName"></div>
-        <div class="spec-pop-content" id="specPopContent"></div>
-      </div>
-    </div>
-
     <script>
       /* ── PREFERENCIA DE MOVIMIENTO ── */
       const reduceMotion = window.matchMedia(
@@ -6540,37 +6479,12 @@
       });
 
       /* ── SPECS TOGGLE ── */
-      /* Características en panel flotante (no empuja la tarjeta ni estira a las
-         vecinas). Reutiliza el contenido de .spec-body de cada modelo. */
-      const specPop = document.getElementById("specPop");
-      const specPopName = document.getElementById("specPopName");
-      const specPopContent = document.getElementById("specPopContent");
+      /* Características: desplegable inline (solo crece la tarjeta que se abre;
+         las vecinas no se mueven gracias a align-items:start en la cuadrícula). */
       function toggleSpec(btn) {
-        const card = btn.closest(".pcard");
-        if (!card || !specPop) return;
-        const nm = card.querySelector(".pcb-name");
-        const body = card.querySelector(".spec-body");
-        specPopName.textContent = nm ? nm.textContent.trim() : "";
-        specPopContent.innerHTML = body ? body.innerHTML : "";
-        specPop.classList.add("open");
-        document.body.style.overflow = "hidden";
+        btn.classList.toggle("open");
+        btn.nextElementSibling.classList.toggle("open");
       }
-      (function () {
-        if (!specPop) return;
-        function closeSpec() {
-          specPop.classList.remove("open");
-          document.body.style.overflow = "";
-        }
-        const cb = document.getElementById("specPopClose");
-        if (cb) cb.addEventListener("click", closeSpec);
-        specPop.addEventListener("click", (e) => {
-          if (e.target === specPop) closeSpec();
-        });
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && specPop.classList.contains("open"))
-            closeSpec();
-        });
-      })();
 
       /* ── REVEAL ON SCROLL ── */
       const io = new IntersectionObserver(
