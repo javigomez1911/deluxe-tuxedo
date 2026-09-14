@@ -2074,9 +2074,26 @@
       footer {
         background: var(--white);
         border-top: 1px solid var(--border);
-        padding: 20px 20px calc(20px + var(--safe-bot));
+        padding: 26px 20px calc(22px + var(--safe-bot));
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      .foot-logo-link {
+        display: inline-flex;
+      }
+      .foot-logo-img {
+        height: 58px;
+        width: auto;
+        filter: drop-shadow(0 3px 8px rgba(12, 12, 12, 0.14));
+        transition: transform 0.3s ease, filter 0.3s ease;
+      }
+      @media (hover: hover) {
+        .foot-logo-link:hover .foot-logo-img {
+          transform: translateY(-2px);
+          filter: drop-shadow(0 6px 14px rgba(12, 12, 12, 0.2));
+        }
       }
       .foot-top {
         display: flex;
@@ -6095,6 +6112,15 @@
 
     <!-- FOOTER -->
     <footer>
+      <a href="#inicio" class="foot-logo-link" aria-label="Deluxe Tuxedo — inicio">
+        <img
+          class="foot-logo-img"
+          src="Logo y Portada/Logo.png"
+          alt="Deluxe Tuxedo"
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
       <div class="foot-bottom">
         <div class="foot-copy">
           © 2025 Deluxe Tuxedo · Todos los derechos reservados
