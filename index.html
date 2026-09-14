@@ -102,9 +102,9 @@
         background: var(--red);
       }
       .ey-t {
-        font-size: 9px;
+        font-size: 10px;
         font-weight: 700;
-        letter-spacing: 0.3em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
         color: var(--red);
       }
@@ -476,11 +476,12 @@
         background: var(--red);
       }
       .hero-ey-t {
-        font-size: 9px;
+        font-size: 10.5px;
         font-weight: 700;
-        letter-spacing: 0.28em;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--red);
+        color: rgba(255, 255, 255, 0.92);
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
       }
       .hero-h {
         font-family: "Manrope", sans-serif;
@@ -752,11 +753,19 @@
         color: #fff;
         margin-bottom: 6px;
       }
+      /* Eyebrow legible sobre el fondo oscuro del banner (rojo solo en la rayita) */
+      .cat-banner .ey-t {
+        color: rgba(255, 255, 255, 0.82);
+      }
       .cat-banner-sub {
         font-size: 13px;
         color: rgba(255, 255, 255, 0.5);
         font-weight: 400;
         line-height: 1.65;
+      }
+      /* Subtítulo: distinto en celular (deslizar) vs computadora (scroll) */
+      .cat-banner-sub .sub-d {
+        display: none;
       }
 
       /* ── CATEGORY TABS — horizontal scroll ── */
@@ -2927,6 +2936,14 @@
         .cat-banner {
           padding: 60px 5% 36px;
         }
+        /* En computadora no se "desliza" (es scroll), así que se muestra el
+           texto adecuado y se oculta el de celular. */
+        .cat-banner-sub .sub-m {
+          display: none;
+        }
+        .cat-banner-sub .sub-d {
+          display: inline;
+        }
         footer {
           padding: 24px 5%;
         }
@@ -3284,8 +3301,12 @@
           Catálogo Completo
         </h2>
         <p class="cat-banner-sub">
-          Desliza horizontalmente dentro de cada categoría para explorar
-          modelos.
+          <span class="sub-m"
+            >Desliza horizontalmente dentro de cada categoría para explorar
+            modelos.</span
+          ><span class="sub-d"
+            >Explora nuestras colecciones por categoría.</span
+          >
         </p>
       </div>
 
