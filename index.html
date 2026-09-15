@@ -1506,15 +1506,20 @@
       }
       .branch {
         flex-shrink: 0;
-        width: 290px;
+        width: 300px;
         background: var(--white);
         border: 1px solid var(--border);
-        border-top: 3px solid var(--red);
+        border-radius: 12px;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 6px 20px rgba(12, 12, 12, 0.05);
+        transition: transform 0.35s cubic-bezier(0.2, 0.75, 0.2, 1),
+          box-shadow 0.35s ease;
       }
       .br-img {
         width: 100%;
-        height: 210px;
+        height: 190px;
         background: var(--warm);
         position: relative;
         overflow: hidden;
@@ -1524,94 +1529,148 @@
         height: 100%;
         object-fit: cover;
         opacity: 1;
-        transition: transform 0.4s;
+        transition: transform 0.55s cubic-bezier(0.2, 0.75, 0.2, 1);
+      }
+      /* Velo inferior para profundidad y que resalte el número */
+      .br-img::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(12, 12, 12, 0.32),
+          rgba(12, 12, 12, 0) 42%
+        );
+        pointer-events: none;
       }
       .br-num {
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 12px;
+        left: 12px;
         background: var(--red);
         color: #fff;
-        font-size: 8.5px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        padding: 4px 9px;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        padding: 5px 11px;
+        border-radius: 100px;
         z-index: 2;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
       }
       .br-img-input {
         display: none;
       }
       .br-body {
-        padding: 16px 16px 0;
+        padding: 18px 18px 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
       }
       .br-name {
         font-family: "Manrope", sans-serif;
-        font-size: 1.1rem;
-        font-weight: 700;
+        font-size: 1.12rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
         color: var(--black);
-        margin-bottom: 10px;
+        margin-bottom: 14px;
       }
       .br-row {
         display: flex;
         align-items: flex-start;
-        gap: 7px;
-        font-size: 12px;
+        gap: 10px;
+        font-size: 12.5px;
         color: var(--muted);
-        margin-bottom: 5px;
-        line-height: 1.6;
-        font-weight: 400;
+        margin-bottom: 10px;
+        line-height: 1.55;
+        font-weight: 500;
       }
-      .br-dot {
-        color: var(--red);
+      /* Icono en círculo (ubicación / teléfono) */
+      .br-ic {
         flex-shrink: 0;
-        font-size: 7px;
-        margin-top: 5px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(181, 19, 42, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -1px;
       }
+      .br-ic svg {
+        width: 13px;
+        height: 13px;
+        fill: var(--red);
+      }
+      .br-row a {
+        color: var(--text);
+        font-weight: 700;
+      }
+      /* Horario — bloque limpio con etiqueta (sin barra lateral) */
       .br-hours {
         font-size: 12px;
-        color: #888;
+        color: var(--text);
         background: var(--cream);
-        padding: 7px 10px;
-        margin: 12px 0 0;
-        border-left: 2px solid var(--red);
-        line-height: 1.65;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 11px 13px;
+        margin: 6px 0 2px;
+        line-height: 1.7;
+        font-weight: 500;
       }
+      .br-hours::before {
+        content: "Horario";
+        display: block;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 4px;
+      }
+      /* Botones: "Cómo llegar" primario (rojo), "Llamar" secundario (contorno) */
       .br-btns {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1px;
-        background: var(--border);
-        margin-top: 14px;
+        gap: 8px;
+        margin: 16px 18px 18px;
       }
       .br-btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 5px;
-        padding: 15px 8px;
+        gap: 7px;
+        padding: 12px 8px;
         min-height: 44px;
-        background: var(--white);
+        border-radius: 100px;
         font-size: 10.5px;
         font-weight: 700;
-        letter-spacing: 0.07em;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
-        color: var(--text);
-        transition:
-          background var(--t),
-          color var(--t);
+        transition: background var(--t), color var(--t), border-color var(--t),
+          transform 0.2s;
       }
       .br-btn svg {
-        width: 12px;
-        height: 12px;
+        width: 13px;
+        height: 13px;
         fill: currentColor;
       }
-      .br-btn:active {
+      .br-btn:not(.br-map) {
+        background: #fff;
+        border: 1.5px solid var(--border);
+        color: var(--text);
+      }
+      .br-btn:not(.br-map):active {
         background: var(--black);
+        border-color: var(--black);
+        color: #fff;
+      }
+      .br-btn.br-map {
+        background: var(--red);
+        border: 1.5px solid var(--red);
         color: #fff;
       }
       .br-btn.br-map:active {
-        background: var(--red);
-        color: #fff;
+        background: #8f0f21;
       }
 
       /* ────── MARCAS — CARRUSEL INFINITO ────── */
@@ -1688,12 +1747,20 @@
         .fg-card:hover,
         .branch:hover,
         .promo-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+          transform: translateY(-6px);
+          box-shadow: 0 18px 40px rgba(12, 12, 12, 0.14);
         }
-        .br-btn:hover {
-          transform: translateY(-1px);
-          opacity: 0.92;
+        .branch:hover .br-img img {
+          transform: scale(1.06);
+        }
+        .br-btn:not(.br-map):hover {
+          background: var(--black);
+          border-color: var(--black);
+          color: #fff;
+        }
+        .br-btn.br-map:hover {
+          background: #8f0f21;
+          border-color: #8f0f21;
         }
       }
       @keyframes brands-scroll {
@@ -5746,14 +5813,14 @@
           <div class="br-body">
             <div class="br-name">Anáhuac / Universidad</div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg></span
               ><span
                 >Av. Fray Bartolomé de las Casas 215, Roble Norte, San Nicolás
                 de los Garza, N.L.</span
               >
             </div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ph"/></svg></span
               ><span
                 ><a
                   href="tel:8183327084"
@@ -5795,14 +5862,14 @@
           <div class="br-body">
             <div class="br-name">Mitras Centro / Cumbres</div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg></span
               ><span
                 >Av. Simón Bolívar #1727, Col. Mitras Centro, Monterrey,
                 N.L.</span
               >
             </div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ph"/></svg></span
               ><span
                 ><a
                   href="tel:8183727715"
@@ -5844,14 +5911,14 @@
           <div class="br-body">
             <div class="br-name">Puentes / Santo Domingo</div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg></span
               ><span
                 >Av. Diego Díaz de Berlanga #1222, Balcones de Santo Domingo,
                 San Nicolás, N.L.</span
               >
             </div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ph"/></svg></span
               ><span
                 ><a
                   href="tel:8111593261"
@@ -5893,14 +5960,14 @@
           <div class="br-body">
             <div class="br-name">Zona Sur / Las Torres</div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg></span
               ><span
                 >Av. Lázaro Cárdenas #3143, Col. Valle del Márquez, Monterrey,
                 N.L.</span
               >
             </div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ph"/></svg></span
               ><span
                 ><a
                   href="tel:8114150602"
@@ -5942,14 +6009,14 @@
           <div class="br-body">
             <div class="br-name">Gonzalitos</div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg></span
               ><span
                 >Av. Ruiz Cortines 2533 Esq. Av. Gonzalitos, Mitras Norte,
                 Monterrey, N.L.</span
               >
             </div>
             <div class="br-row">
-              <span class="br-dot">●</span
+              <span class="br-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ph"/></svg></span
               ><span
                 ><a
                   href="tel:8139536428"
