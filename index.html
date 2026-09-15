@@ -6350,12 +6350,10 @@
       function updateNav() {
         const y = window.scrollY;
         nav.classList.toggle("stuck", y > 8);
-        // Computadora: la barra SOLO se ve mientras el hero está a la vista;
-        // se oculta al entrar al contenido y reaparece al volver al hero.
+        // Computadora: la barra (con el logo) desaparece al primer scroll hacia
+        // abajo y solo reaparece al volver hasta arriba del hero.
         if (deskMQ.matches) {
-          const heroH = heroEl ? heroEl.offsetHeight : 400;
-          const inHero = y < heroH - nav.offsetHeight;
-          rootEl.classList.toggle("nav-up", !inHero);
+          rootEl.classList.toggle("nav-up", y > 8);
         } else {
           rootEl.classList.remove("nav-up");
         }
