@@ -2555,17 +2555,14 @@
         transform: translateY(0) scale(1);
       }
       /* Imagen del cupón: banner arriba en celular */
+      /* En celular el cupón va SIN imagen (más compacto y directo);
+         la foto solo aparece en pantallas amplias (tarjeta partida). */
       .popup-img {
-        display: block;
-        width: 100%;
-        height: 172px;
-        object-fit: cover;
-        object-position: center 22%;
+        display: none;
       }
       .popup-content {
         display: block;
       }
-      /* En pantallas amplias: tarjeta partida (foto a la izquierda) */
       @media (min-width: 560px) {
         .popup-box {
           display: flex;
@@ -2573,9 +2570,11 @@
           align-items: stretch;
         }
         .popup-img {
+          display: block;
           width: 250px;
           height: auto;
           flex-shrink: 0;
+          object-fit: cover;
           object-position: center top;
         }
         .popup-content {
