@@ -6958,7 +6958,7 @@
 
           const dg = pci.dataset.gallery;
           const list = dg ? dg.split("|") : null;
-          if (list && list.length > 1 && !reduceMotion) {
+          if (list && list.length > 1) {
             const imgB = document.createElement("img");
             imgB.className = "pci-slide";
             imgB.loading = "lazy";
@@ -6968,7 +6968,15 @@
             const layers = [imgA, imgB];
             let front = 0,
               timer = null;
+            function inView() {
+              if (pci.offsetParent === null) return false; // categoría oculta
+              const r = pci.getBoundingClientRect();
+              const vh = window.innerHeight || document.documentElement.clientHeight;
+              return r.bottom > -200 && r.top < vh + 200;
+            }
             function advance() {
+              // Solo repinta si la tarjeta está a la vista → scroll fluido
+              if (!inView()) return;
               const nextIdx = (state.idx + 1) % list.length;
               const back = layers[1 - front];
               back.onload = () => {
@@ -6979,42 +6987,15 @@
               };
               back.src = list[nextIdx];
             }
-            rotators.push({
-              pci,
-              start() {
-                if (timer) return;
-                const tick = () => {
-                  advance();
-                  timer = setTimeout(tick, 2800 + Math.random() * 1800);
-                };
-                // arranque desfasado para no repintar todas a la vez
-                timer = setTimeout(tick, 900 + Math.random() * 2200);
-              },
-              stop() {
-                if (timer) {
-                  clearTimeout(timer);
-                  timer = null;
-                }
-              },
-            });
+            const tick = () => {
+              advance();
+              timer = setTimeout(tick, 2800 + Math.random() * 1800);
+            };
+            // arranque desfasado para no repintar todas a la vez
+            timer = setTimeout(tick, 900 + Math.random() * 2200);
+            rotators.push({ pci });
           }
         });
-
-        // Solo rotan las tarjetas visibles → scroll fluido y ahorro de datos
-        if (rotators.length) {
-          const io = new IntersectionObserver(
-            (entries) => {
-              entries.forEach((en) => {
-                const r = rotators.find((x) => x.pci === en.target);
-                if (!r) return;
-                if (en.isIntersecting) r.start();
-                else r.stop();
-              });
-            },
-            { threshold: 0.3 }
-          );
-          rotators.forEach((r) => io.observe(r.pci));
-        }
       })();
 
       /* ── PAUSAR EL CARRUSEL DE MARCAS FUERA DE PANTALLA ── */
