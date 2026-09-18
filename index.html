@@ -6941,60 +6941,18 @@
           { passive: true }
         );
 
-        /* ---- Rotación automática (crossfade) + lupa por tarjeta ---- */
-        const rotators = [];
+        /* ---- Lupa por tarjeta + clic para abrir la galería ---- */
         document.querySelectorAll(".pci").forEach((pci) => {
           const imgA = pci.querySelector("img");
           if (!imgA) return;
           const card = pci.closest(".pcard");
-          const state = { idx: 0 };
 
           const hint = document.createElement("div");
           hint.className = "pci-zoom";
           hint.innerHTML = ZOOM_SVG;
           pci.appendChild(hint);
 
-          imgA.addEventListener("click", () => openLb(card, state.idx));
-
-          const dg = pci.dataset.gallery;
-          const list = dg ? dg.split("|") : null;
-          if (list && list.length > 1) {
-            const imgB = document.createElement("img");
-            imgB.className = "pci-slide";
-            imgB.loading = "lazy";
-            imgB.decoding = "async";
-            imgB.alt = "";
-            pci.insertBefore(imgB, hint);
-            const layers = [imgA, imgB];
-            let front = 0,
-              timer = null;
-            function inView() {
-              if (pci.offsetParent === null) return false; // categoría oculta
-              const r = pci.getBoundingClientRect();
-              const vh = window.innerHeight || document.documentElement.clientHeight;
-              return r.bottom > -200 && r.top < vh + 200;
-            }
-            function advance() {
-              // Solo repinta si la tarjeta está a la vista → scroll fluido
-              if (!inView()) return;
-              const nextIdx = (state.idx + 1) % list.length;
-              const back = layers[1 - front];
-              back.onload = () => {
-                back.style.opacity = "1";
-                layers[front].style.opacity = "0";
-                front = 1 - front;
-                state.idx = nextIdx;
-              };
-              back.src = list[nextIdx];
-            }
-            const tick = () => {
-              advance();
-              timer = setTimeout(tick, 2800 + Math.random() * 1800);
-            };
-            // arranque desfasado para no repintar todas a la vez
-            timer = setTimeout(tick, 900 + Math.random() * 2200);
-            rotators.push({ pci });
-          }
+          imgA.addEventListener("click", () => openLb(card, 0));
         });
       })();
 
