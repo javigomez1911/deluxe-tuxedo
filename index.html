@@ -942,15 +942,28 @@
         position: relative;
         flex-shrink: 0;
       }
-      .pci img {
+      .pci img,
+      .pci .pci-slide {
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center top;
         padding: 0;
+      }
+      .pci img {
         opacity: 1;
-        transition: transform 0.4s;
         cursor: zoom-in;
+        transition: opacity 0.7s ease;
+        z-index: 1;
+      }
+      /* Segunda capa para el crossfade automático entre fotos del modelo */
+      .pci .pci-slide {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.7s ease;
+        z-index: 1;
       }
       /* Pista visual: lupa que aparece al pasar/tocar la foto */
       .pci-zoom {
@@ -1058,6 +1071,58 @@
       }
       .lb-close:hover {
         background: rgba(255, 255, 255, 0.3);
+      }
+      /* Flechas de galería del lightbox */
+      .lb-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        font-size: 26px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 3;
+        transition: background 0.2s, transform 0.2s;
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+      }
+      .lb-prev {
+        left: 14px;
+      }
+      .lb-next {
+        right: 14px;
+      }
+      .lb-nav:hover {
+        background: var(--red);
+      }
+      .lb-count {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.75);
+        margin-top: 10px;
+        font-variant-numeric: tabular-nums;
+      }
+      @media (max-width: 560px) {
+        .lb-nav {
+          width: 40px;
+          height: 40px;
+          font-size: 22px;
+        }
+        .lb-prev {
+          left: 6px;
+        }
+        .lb-next {
+          right: 6px;
+        }
       }
       /* Badge */
       .pc-badge {
@@ -3505,7 +3570,7 @@
             </div>
             <div class="hscroll">
               <div class="pcard rv" id="frac">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/FRAC.jpg|Catalogo Deluxe Tuxedo/galeria/frack/2.jpg|Catalogo Deluxe Tuxedo/galeria/frack/3.jpg|Catalogo Deluxe Tuxedo/galeria/frack/4.jpg|Catalogo Deluxe Tuxedo/galeria/frack/5.jpg|Catalogo Deluxe Tuxedo/galeria/frack/6.jpg">
                   <div class="pc-badge">100% Novio</div>
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/FRAC.jpg"
@@ -3555,7 +3620,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="jaquet-n">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/JAQUET NEGRO.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-negro/2.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-negro/3.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-negro/4.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-negro/5.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-negro/6.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/JAQUET NEGRO.jpg"
                     alt="Jaquet Negro"
@@ -3607,7 +3672,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="jaquet-a">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/JAQUET AZUL.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-azul/2.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-azul/3.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-azul/4.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-azul/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/JAQUET AZUL.jpg"
                     alt="Jaquet Azul"
@@ -3657,7 +3722,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="sm-mao">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING CUELLO MAO.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-cuello-mao/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-cuello-mao/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-cuello-mao/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-cuello-mao/5.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-cuello-mao/6.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING CUELLO MAO.jpg"
                     alt="Smoking Cuello Mao"
@@ -3727,7 +3792,7 @@
             </div>
             <div class="hscroll">
               <div class="pcard rv" id="graphite">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SM GRAPHITE GRAY ETIQUETA PREMIUM (ALLURE).jpg|Catalogo Deluxe Tuxedo/galeria/sm-graphite-gray-etiqueta-premium-allure/2.jpg|Catalogo Deluxe Tuxedo/galeria/sm-graphite-gray-etiqueta-premium-allure/3.jpg|Catalogo Deluxe Tuxedo/galeria/sm-graphite-gray-etiqueta-premium-allure/4.jpg|Catalogo Deluxe Tuxedo/galeria/sm-graphite-gray-etiqueta-premium-allure/5.jpg">
                   <div class="pc-badge">Premium</div>
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SM GRAPHITE GRAY ETIQUETA PREMIUM (ALLURE).jpg"
@@ -3781,7 +3846,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="denim">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SM DENIM BLUE ETIQUETA PREMIUM (ALLURE).jpg|Catalogo Deluxe Tuxedo/galeria/sm-denim-blue-etiqueta-premium-allure/2.jpg|Catalogo Deluxe Tuxedo/galeria/sm-denim-blue-etiqueta-premium-allure/3.jpg|Catalogo Deluxe Tuxedo/galeria/sm-denim-blue-etiqueta-premium-allure/4.jpg">
                   <div class="pc-badge">Premium</div>
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SM DENIM BLUE ETIQUETA PREMIUM (ALLURE).jpg"
@@ -3834,7 +3899,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="ultra">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SM ULTRA BLACK ETIQUETA PREMIUM (ALLURE).jpg|Catalogo Deluxe Tuxedo/galeria/sm-ultra-black-etiqueta-premium-allure/2.jpg|Catalogo Deluxe Tuxedo/galeria/sm-ultra-black-etiqueta-premium-allure/3.jpg|Catalogo Deluxe Tuxedo/galeria/sm-ultra-black-etiqueta-premium-allure/4.jpg|Catalogo Deluxe Tuxedo/galeria/sm-ultra-black-etiqueta-premium-allure/5.jpg">
                   <div class="pc-badge">Premium</div>
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SM ULTRA BLACK ETIQUETA PREMIUM (ALLURE).jpg"
@@ -3887,7 +3952,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="bes-n">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SM BLACK ESSENTIALS SLIM (ALLURE) PARA NOVIO.jpg|Catalogo Deluxe Tuxedo/galeria/sm-black-essentials-slim-allure-para-novio/2.jpg|Catalogo Deluxe Tuxedo/galeria/sm-black-essentials-slim-allure-para-novio/3.jpg|Catalogo Deluxe Tuxedo/galeria/sm-black-essentials-slim-allure-para-novio/4.jpg|Catalogo Deluxe Tuxedo/galeria/sm-black-essentials-slim-allure-para-novio/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SM BLACK ESSENTIALS SLIM (ALLURE) PARA NOVIO.jpg"
                     alt="SM Black Essentials — Novio"
@@ -3939,7 +4004,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="bes-i">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SM BLACK ESSENTIALS SLIM (ALLURE).jpg|Catalogo Deluxe Tuxedo/galeria/sm-black-essentials-slim-allure/2.jpg|Catalogo Deluxe Tuxedo/galeria/sm-black-essentials-slim-allure/3.jpg|Catalogo Deluxe Tuxedo/galeria/sm-black-essentials-slim-allure/4.jpg|Catalogo Deluxe Tuxedo/galeria/sm-black-essentials-slim-allure/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SM BLACK ESSENTIALS SLIM (ALLURE).jpg"
                     alt="SM Black Essentials Slim"
@@ -4012,7 +4077,7 @@
             </div>
             <div class="hscroll">
               <div class="pcard rv" id="beige-e">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE BEIGE MEDIA ETIQUETA (STATEMENT).jpeg|Catalogo Deluxe Tuxedo/galeria/traje-beige-media-etiqueta-statement/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-beige-media-etiqueta-statement/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-beige-media-etiqueta-statement/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-beige-media-etiqueta-statement/5.jpg|Catalogo Deluxe Tuxedo/galeria/traje-beige-media-etiqueta-statement/6.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE BEIGE MEDIA ETIQUETA (STATEMENT).jpeg"
                     alt="Traje Beige — Media Etiqueta"
@@ -4055,7 +4120,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="beige">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE BEIGE (STATEMENT).jpeg|Catalogo Deluxe Tuxedo/galeria/traje-beige-statement/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-beige-statement/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-beige-statement/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-beige-statement/5.jpg|Catalogo Deluxe Tuxedo/galeria/traje-beige-statement/6.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE BEIGE (STATEMENT).jpeg"
                     alt="Traje Beige"
@@ -4099,7 +4164,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="verde-e">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE VERDE OLIVO MEDIA ETIQUETA (STATEMENT).jpeg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-media-etiqueta-statement/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-media-etiqueta-statement/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-media-etiqueta-statement/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-media-etiqueta-statement/5.jpg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-media-etiqueta-statement/6.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE VERDE OLIVO MEDIA ETIQUETA (STATEMENT).jpeg"
                     alt="Traje Verde Olivo — M. Etiqueta"
@@ -4143,7 +4208,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="verde">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE VERDE OLIVO (STATEMENT).jpeg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-statement/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-statement/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-statement/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-verde-olivo-statement/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE VERDE OLIVO (STATEMENT).jpeg"
                     alt="Traje Verde Olivo"
@@ -4208,7 +4273,7 @@
             </div>
             <div class="hscroll">
               <div class="pcard rv" id="wayne">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING WAYNE.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-wayne/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-wayne/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-wayne/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-wayne/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING WAYNE.jpg"
                     alt="Smoking Wayne"
@@ -4260,7 +4325,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="cl-pico">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING CLÁSICO SOLAPA DE PICO.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-clasico-solapa-de-pico/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-clasico-solapa-de-pico/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-clasico-solapa-de-pico/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-clasico-solapa-de-pico/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING CLÁSICO SOLAPA DE PICO.jpg"
                     alt="Smoking Clásico Solapa de Pico"
@@ -4312,7 +4377,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="md-azul">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING MODA AZUL.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-azul/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-azul/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-azul/4.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING MODA AZUL.jpg"
                     alt="Smoking Moda Azul"
@@ -4360,7 +4425,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="md-bco">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING MODA BLANCO.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-blanco/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-blanco/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-blanco/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-blanco/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING MODA BLANCO.jpg"
                     alt="Smoking Moda Blanco"
@@ -4408,7 +4473,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="md-vino">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING MODA VINO.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-vino/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-vino/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-vino/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-vino/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING MODA VINO.jpg"
                     alt="Smoking Moda Vino"
@@ -4457,7 +4522,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="md-gris">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING MODA GRIS.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-gris-claro/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-gris-claro/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-gris-claro/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-moda-gris-claro/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING MODA GRIS.jpg"
                     alt="Smoking Moda Gris"
@@ -4502,7 +4567,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="ottimo">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING OTTIMO SUPER SLIM.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-ottimo-super-slim/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-ottimo-super-slim/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-ottimo-super-slim/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-ottimo-super-slim/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING OTTIMO SUPER SLIM.jpg"
                     alt="Smoking Ottimo Super Slim"
@@ -4549,7 +4614,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="zauca-s">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING ZAUCA SLIM.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-perry-ellis-zauca-slim/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-perry-ellis-zauca-slim/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-perry-ellis-zauca-slim/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-perry-ellis-zauca-slim/5.jpg">
                   <img loading="lazy"
                     class="img-full-suit"
                     src="Catalogo Deluxe Tuxedo/SMOKING ZAUCA SLIM.jpg"
@@ -4594,7 +4659,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="zauca-r">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING ZAUCA REGULAR.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-perry-ellis-zauca-regular/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-perry-ellis-zauca-regular/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-perry-ellis-zauca-regular/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-perry-ellis-zauca-regular/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING ZAUCA REGULAR.jpg"
                     alt="Smoking Zauca Regular"
@@ -4659,7 +4724,7 @@
             </div>
             <div class="hscroll">
               <div class="pcard rv" id="d3p">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE DENIM BLUE 3 PIEZAS PREMIUM (ALLURE).jpg|Catalogo Deluxe Tuxedo/galeria/traje-denim-blue-3-piezas-premium-allure/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-denim-blue-3-piezas-premium-allure/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-denim-blue-3-piezas-premium-allure/4.jpg">
                   <div class="pc-badge">Premium</div>
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE DENIM BLUE 3 PIEZAS PREMIUM (ALLURE).jpg"
@@ -4704,7 +4769,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="g3p">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE GRAPHITE GRAY 3 PIEZAS PREMIUM (ALLURE).jpg|Catalogo Deluxe Tuxedo/galeria/traje-graphite-gray-3-piezas-premium-allure/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-graphite-gray-3-piezas-premium-allure/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-graphite-gray-3-piezas-premium-allure/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-graphite-gray-3-piezas-premium-allure/5.jpg">
                   <div class="pc-badge">Premium</div>
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE GRAPHITE GRAY 3 PIEZAS PREMIUM (ALLURE).jpg"
@@ -4749,7 +4814,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="u3p">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE ULTRA BLACK 3 PIEZAS PREMIUM (ALLURE).jpg|Catalogo Deluxe Tuxedo/galeria/traje-ultra-black-3-piezas-premium-allure/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-ultra-black-3-piezas-premium-allure/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-ultra-black-3-piezas-premium-allure/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-ultra-black-3-piezas-premium-allure/5.jpg">
                   <div class="pc-badge">Premium</div>
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE ULTRA BLACK 3 PIEZAS PREMIUM (ALLURE).jpg"
@@ -4814,7 +4879,7 @@
             </div>
             <div class="hscroll">
               <div class="pcard rv" id="az-etq">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE AZUL ½ ETIQUETA.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-azul-media-etiqueta/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-azul-media-etiqueta/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-azul-media-etiqueta/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-azul-media-etiqueta/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE AZUL ½ ETIQUETA.jpg"
                     alt="Traje Azul ½ Etiqueta"
@@ -4855,7 +4920,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="azc-etq">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE AZUL COBALTO ½ ETIQUETA.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-azul-cobalto-media-etiqueta/2.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-azul-cobalto-media-etiqueta/3.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-azul-cobalto-media-etiqueta/4.jpg|Catalogo Deluxe Tuxedo/galeria/jaquet-azul-cobalto-media-etiqueta/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE AZUL COBALTO ½ ETIQUETA.jpg"
                     alt="Traje Azul Cobalto ½ Etiqueta"
@@ -4896,7 +4961,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="neg-sl">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE NEGRO SUPER SLIM-SLIM FIT.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-ottimo-perry-ellis/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-ottimo-perry-ellis/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-ottimo-perry-ellis/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-ottimo-perry-ellis/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE NEGRO SUPER SLIM-SLIM FIT.jpg"
                     alt="Traje Negro Super Slim / Slim"
@@ -4940,7 +5005,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="az-sl">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE AZUL SUPER SLIM-SLIM FIT.jpg|Catalogo Deluxe Tuxedo/galeria/traje-azul-marino-ottimo-perry-ellis/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-azul-marino-ottimo-perry-ellis/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-azul-marino-ottimo-perry-ellis/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-azul-marino-ottimo-perry-ellis/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE AZUL SUPER SLIM-SLIM FIT.jpg"
                     alt="Traje Azul Super Slim / Slim"
@@ -4984,7 +5049,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="ox-sl">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE OXFORD SUPER SLIM-SLIM FIT.jpg|Catalogo Deluxe Tuxedo/galeria/traje-gris-oxford-ottimo-perry-ellis/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-gris-oxford-ottimo-perry-ellis/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-gris-oxford-ottimo-perry-ellis/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-gris-oxford-ottimo-perry-ellis/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE OXFORD SUPER SLIM-SLIM FIT.jpg"
                     alt="Traje Oxford Super Slim / Slim"
@@ -5028,7 +5093,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="gris-sl">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE GRIS CLARO SLIM FIT.jpg|Catalogo Deluxe Tuxedo/galeria/traje-gris-claro-slim-fit/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-gris-claro-slim-fit/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-gris-claro-slim-fit/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-gris-claro-slim-fit/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE GRIS CLARO SLIM FIT.jpg"
                     alt="Traje Gris Claro Slim Fit"
@@ -5072,7 +5137,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="neg-sk">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE NEGRO SKINNY.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-skinny/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-skinny/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-skinny/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-skinny/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE NEGRO SKINNY.jpg"
                     alt="Traje Negro Skinny"
@@ -5116,7 +5181,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="azc">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE AZUL COBALTO.jpg|Catalogo Deluxe Tuxedo/galeria/traje-azul-cobalto-perry-ellis/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-azul-cobalto-perry-ellis/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-azul-cobalto-perry-ellis/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-azul-cobalto-perry-ellis/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE AZUL COBALTO.jpg"
                     alt="Traje Azul Cobalto"
@@ -5160,7 +5225,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="arena">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE ARENA.jpg|Catalogo Deluxe Tuxedo/galeria/traje-arena/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-arena/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-arena/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-arena/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE ARENA.jpg"
                     alt="Traje Arena"
@@ -5204,7 +5269,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="hpc-nr">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE HPC NEGRO RAYADO.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-negro-rayado/2.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-negro-rayado/3.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-negro-rayado/4.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-negro-rayado/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE HPC NEGRO RAYADO.jpg"
                     alt="Traje HPC Negro Rayado"
@@ -5248,7 +5313,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="hpc-ns">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE HPC NEGRO SATINADO.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-negro-satinado/2.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-negro-satinado/3.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-negro-satinado/4.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-negro-satinado/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE HPC NEGRO SATINADO.jpg"
                     alt="Traje HPC Negro Satinado"
@@ -5292,7 +5357,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="hpc-p">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE HPC PLATA SATINADO.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-plata-satinado/2.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-plata-satinado/3.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-plata-satinado/4.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-plata-satinado/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE HPC PLATA SATINADO.jpg"
                     alt="Traje HPC Plata Satinado"
@@ -5336,7 +5401,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="hpc-o">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE HPC OXFORD BROCADO.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-oxford-brocado/2.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-oxford-brocado/3.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-oxford-brocado/4.jpg|Catalogo Deluxe Tuxedo/galeria/hpc-oxford-brocado/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE HPC OXFORD BROCADO.jpg"
                     alt="Traje HPC Oxford Brocado"
@@ -5401,7 +5466,7 @@
             </div>
             <div class="hscroll">
               <div class="pcard rv" id="sm-nino">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/SMOKING NIÑO (2 A 14 AÑOS).jpg|Catalogo Deluxe Tuxedo/galeria/smoking-nino-2-a-14-anos/2.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-nino-2-a-14-anos/3.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-nino-2-a-14-anos/4.jpg|Catalogo Deluxe Tuxedo/galeria/smoking-nino-2-a-14-anos/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/SMOKING NIÑO (2 A 14 AÑOS).jpg"
                     alt="Smoking Niño (2-14 años)"
@@ -5445,7 +5510,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="tr-nino">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE NEGRO PARA NIÑO (2 A 14 AÑOS).jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-para-nino-2-a-14-anos/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-para-nino-2-a-14-anos/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-para-nino-2-a-14-anos/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-negro-para-nino-2-a-14-anos/5.jpg">
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE NEGRO PARA NIÑO (2 A 14 AÑOS).jpg"
                     alt="Traje Negro Niño (2-14 años)"
@@ -5485,7 +5550,7 @@
                 </div>
               </div>
               <div class="pcard rv" id="lino">
-                <div class="pci">
+                <div class="pci" data-gallery="Catalogo Deluxe Tuxedo/TRAJE LINO.jpg|Catalogo Deluxe Tuxedo/galeria/traje-lino/2.jpg|Catalogo Deluxe Tuxedo/galeria/traje-lino/3.jpg|Catalogo Deluxe Tuxedo/galeria/traje-lino/4.jpg|Catalogo Deluxe Tuxedo/galeria/traje-lino/5.jpg">
                   <div class="pc-badge">Venta</div>
                   <img loading="lazy"
                     src="Catalogo Deluxe Tuxedo/TRAJE LINO.jpg"
@@ -6326,11 +6391,18 @@
       aria-label="Vista ampliada del modelo"
     >
       <button class="lb-close" id="lbClose" aria-label="Cerrar">✕</button>
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="Foto anterior" hidden>
+        ‹
+      </button>
+      <button class="lb-nav lb-next" id="lbNext" aria-label="Foto siguiente" hidden>
+        ›
+      </button>
       <figure class="lb-figure">
         <img class="lb-img" id="lbImg" src="" alt="" />
         <figcaption class="lb-cap">
           <div class="lb-cap-name" id="lbName"></div>
           <div class="lb-cap-brand" id="lbBrand"></div>
+          <div class="lb-count" id="lbCount" hidden></div>
         </figcaption>
       </figure>
     </div>
@@ -6798,19 +6870,34 @@
           '<line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" ' +
           'x2="14" y2="11"></line></svg>';
 
-        let lastFocused = null;
+        const lbPrev = document.getElementById("lbPrev");
+        const lbNext = document.getElementById("lbNext");
+        const lbCount = document.getElementById("lbCount");
 
-        function open(img) {
-          const card = img.closest(".pcard");
-          const name = card ? card.querySelector(".pcb-name") : null;
-          const brand = card ? card.querySelector(".pcb-brand") : null;
-          lbImg.src = img.currentSrc || img.src;
-          lbImg.alt = img.alt || "";
+        /* ---- Lightbox como galería ---- */
+        let gal = [],
+          gi = 0,
+          lastFocused = null;
+        function showLb(i) {
+          if (!gal.length) return;
+          gi = (i + gal.length) % gal.length;
+          lbImg.src = gal[gi];
+          const multi = gal.length > 1;
+          lbPrev.hidden = lbNext.hidden = lbCount.hidden = !multi;
+          if (multi) lbCount.textContent = gi + 1 + " / " + gal.length;
+        }
+        function openLb(card, startIdx) {
+          const pci = card.querySelector(".pci");
+          const dg = pci && pci.dataset.gallery;
+          gal = dg ? dg.split("|") : [pci.querySelector("img").src];
+          const name = card.querySelector(".pcb-name");
+          const brand = card.querySelector(".pcb-brand");
           lbName.textContent = name ? name.textContent.trim() : "";
           lbBrand.textContent = brand ? brand.textContent.trim() : "";
           lastFocused = document.activeElement;
           lb.classList.add("open");
           document.body.style.overflow = "hidden";
+          showLb(startIdx || 0);
           lbClose.focus();
         }
         function close() {
@@ -6818,26 +6905,116 @@
           document.body.style.overflow = "";
           if (lastFocused && lastFocused.focus) lastFocused.focus();
         }
-
-        // Añade la lupa y el click a cada foto del catálogo
-        document.querySelectorAll(".pci").forEach((pci) => {
-          const img = pci.querySelector("img");
-          if (!img) return;
-          const hint = document.createElement("div");
-          hint.className = "pci-zoom";
-          hint.innerHTML = ZOOM_SVG;
-          pci.appendChild(hint);
-          img.addEventListener("click", () => open(img));
-        });
-
         lbClose.addEventListener("click", close);
+        lbPrev.addEventListener("click", (e) => {
+          e.stopPropagation();
+          showLb(gi - 1);
+        });
+        lbNext.addEventListener("click", (e) => {
+          e.stopPropagation();
+          showLb(gi + 1);
+        });
         lb.addEventListener("click", (e) => {
           if (e.target === lb || e.target.classList.contains("lb-figure"))
             close();
         });
         document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && lb.classList.contains("open")) close();
+          if (!lb.classList.contains("open")) return;
+          if (e.key === "Escape") close();
+          else if (e.key === "ArrowRight") showLb(gi + 1);
+          else if (e.key === "ArrowLeft") showLb(gi - 1);
         });
+        let tsx = 0;
+        lb.addEventListener(
+          "touchstart",
+          (e) => {
+            tsx = e.touches[0].clientX;
+          },
+          { passive: true }
+        );
+        lb.addEventListener(
+          "touchend",
+          (e) => {
+            const dx = e.changedTouches[0].clientX - tsx;
+            if (Math.abs(dx) > 45) showLb(gi + (dx < 0 ? 1 : -1));
+          },
+          { passive: true }
+        );
+
+        /* ---- Rotación automática (crossfade) + lupa por tarjeta ---- */
+        const rotators = [];
+        document.querySelectorAll(".pci").forEach((pci) => {
+          const imgA = pci.querySelector("img");
+          if (!imgA) return;
+          const card = pci.closest(".pcard");
+          const state = { idx: 0 };
+
+          const hint = document.createElement("div");
+          hint.className = "pci-zoom";
+          hint.innerHTML = ZOOM_SVG;
+          pci.appendChild(hint);
+
+          imgA.addEventListener("click", () => openLb(card, state.idx));
+
+          const dg = pci.dataset.gallery;
+          const list = dg ? dg.split("|") : null;
+          if (list && list.length > 1 && !reduceMotion) {
+            const imgB = document.createElement("img");
+            imgB.className = "pci-slide";
+            imgB.loading = "lazy";
+            imgB.decoding = "async";
+            imgB.alt = "";
+            pci.insertBefore(imgB, hint);
+            const layers = [imgA, imgB];
+            let front = 0,
+              timer = null;
+            function advance() {
+              const nextIdx = (state.idx + 1) % list.length;
+              const back = layers[1 - front];
+              back.onload = () => {
+                back.style.opacity = "1";
+                layers[front].style.opacity = "0";
+                front = 1 - front;
+                state.idx = nextIdx;
+              };
+              back.src = list[nextIdx];
+            }
+            rotators.push({
+              pci,
+              start() {
+                if (timer) return;
+                const tick = () => {
+                  advance();
+                  timer = setTimeout(tick, 2800 + Math.random() * 1800);
+                };
+                // arranque desfasado para no repintar todas a la vez
+                timer = setTimeout(tick, 900 + Math.random() * 2200);
+              },
+              stop() {
+                if (timer) {
+                  clearTimeout(timer);
+                  timer = null;
+                }
+              },
+            });
+          }
+        });
+
+        // Solo rotan las tarjetas visibles → scroll fluido y ahorro de datos
+        if (rotators.length) {
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((en) => {
+                const r = rotators.find((x) => x.pci === en.target);
+                if (!r) return;
+                if (en.isIntersecting) r.start();
+                else r.stop();
+              });
+            },
+            { threshold: 0.3 }
+          );
+          rotators.forEach((r) => io.observe(r.pci));
+        }
       })();
 
       /* ── PAUSAR EL CARRUSEL DE MARCAS FUERA DE PANTALLA ── */
@@ -6971,9 +7148,11 @@
         });
       })();
 
-      /* ── #8 PARALLAX HORIZONTAL DEL CATÁLOGO (solo celular) ── */
+      /* ── #8 PARALLAX HORIZONTAL DEL CATÁLOGO (desactivado: ahora las fotos
+         rotan solas con crossfade, y quitar el transform por scroll mantiene
+         el deslizamiento perfectamente fluido) ── */
       (function () {
-        if (reduceMotion) return;
+        return;
         const mq = window.matchMedia("(max-width: 959px)");
         function apply(strip) {
           const rect = strip.getBoundingClientRect();
